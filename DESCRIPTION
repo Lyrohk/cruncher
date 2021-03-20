@@ -1,0 +1,15 @@
+Package: cruncher
+Title: Crunchbase API v4.0 
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Layla",
+           family = "Rohkohl",
+           role = c("aut", "cre"),
+           email = "layla.rohkohl@web.de",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package helps those with a research Crunchbase API key to easily interact with the endpoints search, autocomplete and entity lookup. All that is required is the key.
+License: `use_mit_license()`
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
