@@ -8,10 +8,17 @@ The goal of cruncher is to speed up the reasearch process and simplify the work 
 
 ## Installation
 
-You can install the released version of cruncher from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of cruncher with the use of devtools:
 
 ``` r
-install.packages("cruncher")
+## Install devtools if you haven't done so already
+install.packages("devtools")
+
+## After installation, use it to install cruncher
+devtools::install_github("lyrohk/cruncher")
+
+## Load cruncher
+library(cruncher)
 ```
 
 ## Example
@@ -19,11 +26,10 @@ install.packages("cruncher")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(cruncher)
-## basic example code
+## Store your research Crunchbase API key as in environment variable
 API_KEY <- "your_research_api_key"
 
 ## Use the autocomplete api endpoint
-output <- autocomplete("categories", query = "AI", limit = 10)
+output <- autocomplete(collection_ids = "categories", query = "AI", limit = 10)
 ```
 
