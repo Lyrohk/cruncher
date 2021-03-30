@@ -64,6 +64,9 @@ autocomplete <-
       # Return data from JSON
       data <- fromJSON(rawToChar(response$content))
       
+      # Print df
+      print(data[["entities"]])
+      
       # Return this df
       df <- data[["entities"]]
     } else {

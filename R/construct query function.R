@@ -1,3 +1,26 @@
+#' Function to construct JSON body request to pass in for the Search API of the Crunchbase API
+#'
+#'@param fields Field names which will be returned as columns
+#'@param order_by Field name by which the response should be ordered
+#'@param sort_direction Order direction, either "asc" for ascending or "desc" for descending. The default is "asc"
+#'@param query JSON of query conditions, each can be individuall constructed with the predicate function
+#'@param limit Number of rows to be returned, default 100, max 2000, min 1
+#'@param before_id For paginating through responses, use this to go back to the entries before this uuid
+#'@param after_id For paginating through responses, use this to go forward to the entries after uuid
+#'@return an list object that can be passed in as the JSON body parameter in the Search API call once converted to JSON
+#'
+#' @author Layla Rohkohl, \email{byehity@gmail.com}
+#'
+#' @examples
+#' make_query(fields = "founded_on,locations", 
+#' order_by = "founded_on", 
+#' sort_direction = "desc",
+#' query = q,
+#' limit = 200)
+#'
+#' @import dplyr
+#' @export
+#'
 # Function to construct the final list object
 # 100, min is 1, max is 2000
 make_query <-

@@ -1,7 +1,7 @@
 # Helper function to view all operators possible
-operators <- function() {
+getOperators <- function() {
   # Make list of all operators
-  operators <- vector(mode = "list", length = 4)
+  operators <- vector(mode = "list", length = 14)
   names(operators) <-
     c(
       "Blank",
