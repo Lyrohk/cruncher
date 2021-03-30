@@ -27,14 +27,19 @@ search <- function(path = "organizations", body) {
   url <- paste0("https://api.crunchbase.com/api/v4/searches/", path, "?user_key=", API_KEY)
   
   # Make POST request
-  response <- POST(url, 
+  response <- httr::POST(url, 
                    body = jsonlite::toJSON(body), #This is your request json
                    encode = "json")
   
-  # Parse it into readable content
-  data <- fromJSON(rawToChar(response$content)) 
+  if (response$status_code == 200) {
+    # Parse it into readable content
+    data <- fromJSON(rawToChar(response$content)) 
+    
+    # Return data
+    data  
+  } else {
+    print(response$status_code)
+  }
   
-  # Return data
-  data
   
 }
