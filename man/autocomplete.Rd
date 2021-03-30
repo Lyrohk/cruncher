@@ -5,16 +5,16 @@
 \title{Function to use the Autocomplete API endpoint of Crunchbase API}
 \usage{
 autocomplete(
+  query,
  
     collection_ids = "organizations,people,funding_rounds,acquisitions,investments,events,press_references,funds,event_appearances,ipos,ownerships,categories,category_groups,locations,jobs",
-  query,
   limit = 10
 )
 }
 \arguments{
-\item{collection_ids}{Within which path the matching to the query should be performed e.g. organizations}
-
 \item{query}{What we are looking for e.g. "Europe" in locations, "Artificial Intelligence" in categories}
+
+\item{collection_ids}{Within which path the matching to the query should be performed e.g. organizations}
 
 \item{limit}{Number of entries to be returned at most (min 1, default 10, max 25)}
 }

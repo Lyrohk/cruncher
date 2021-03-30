@@ -55,7 +55,7 @@ make_query <-
     
     # Fill out the other 4 elements
     query[[1]] <- fields
-    query[[2]] <- order(order_by, sort_direction)
+    query[[2]] <- make_order(order_by, sort_direction)
     query[[3]] <- query
     query[[4]] <- limit
     
