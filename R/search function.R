@@ -28,7 +28,7 @@ search <- function(path = "organizations", body) {
   
   # Make POST request
   response <- POST(url, 
-                   body = toJSON(body), #This is your request json
+                   body = jsonlite::toJSON(body), #This is your request json
                    encode = "json")
   
   # Parse it into readable content
