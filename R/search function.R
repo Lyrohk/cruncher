@@ -13,10 +13,10 @@
 #' @import jsonlite
 #' @export
 #'
-search <- function(path = "organizations", body) {
+search_entity <- function(path = "organizations", body) {
   
   # Check API Key
-  API_KEY = Sys.getenv("API_KEY")
+  API_KEY <- Sys.getenv("API_KEY")
   if (API_KEY == "") {
     stop(
       "Please set your Crunchbase API Key with the setAPIKey(). Please note that the basic access is not sufficient."
