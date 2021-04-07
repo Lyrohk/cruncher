@@ -17,8 +17,8 @@
 lookUpAquisition <- function(id, please_parse = TRUE)  {
   
   # Check that API_KEY exists
-  if (missing(API_KEY)) {
-    stop("Please set your api key to the environment variable API_KEY or use setAPIKey() function to do so.")
+  if (!exists("API_KEY")) {
+    stop("Please set a valid user key to API_KEY as an environmental variable or for use setAPIKey() to do it for you.")
   }
   
   # Check that id has been specified 
