@@ -8,6 +8,7 @@
 #' getOperators()
 #'
 #' @export
+#' 
 # Helper function to view all operators possible
 getOperators <- function() {
   # Make list of all operators

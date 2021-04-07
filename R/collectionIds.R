@@ -9,6 +9,7 @@
 #'
 #' @export
 #'
+# Function
 getCollectionIds <- function() {
   # Make list of all collection ids
   collectionids <- vector(mode = "list", length = 15)
