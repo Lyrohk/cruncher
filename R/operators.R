@@ -1,3 +1,13 @@
+#' Helper function to return all valid operators
+#'
+#'@return all valid operators
+#'
+#' @author Layla Rohkohl, \email{byehity@gmail.com}
+#'
+#' @examples
+#' getOperators()
+#'
+#' @export
 # Helper function to view all operators possible
 getOperators <- function() {
   # Make list of all operators

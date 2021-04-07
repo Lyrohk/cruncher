@@ -1,4 +1,14 @@
-# Helper function to view all collection ids possible
+#' Helper function to return all colleciton ids
+#'
+#'@return all valid collection ids
+#'
+#' @author Layla Rohkohl, \email{byehity@gmail.com}
+#'
+#' @examples
+#' getCollectionIds()
+#'
+#' @export
+#'
 getCollectionIds <- function() {
   # Make list of all collection ids
   collectionids <- vector(mode = "list", length = 15)
