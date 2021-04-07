@@ -23,7 +23,7 @@
 #'
 # Function to construct the final list object
 # 100, min is 1, max is 2000
-make_query <-
+make_json <-
   function(fields,
            order_by = "",
            sort_direction = "asc",

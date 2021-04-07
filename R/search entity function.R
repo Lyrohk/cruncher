@@ -1,4 +1,6 @@
 #' Function to use the Search API endpoint of Crunchbase API
+#' 
+#' Searches for an entity. You need to specify which entity e.g. organization, person, etc. it is and provide a json body. See helper functions make_order and make_query for this.
 #'
 #'@param path What are you searching for? Default: organizations. Other options include:  organizations
 #'@param body The JSON body that specifies the query, order, limit etc.
