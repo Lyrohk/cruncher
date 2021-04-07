@@ -1,3 +1,5 @@
+#' Search for entities
+#' 
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
 #'
 #' @examples
