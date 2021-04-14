@@ -1,3 +1,21 @@
+#' Function to lookup a card for a single organization over the Entity Lookup API Endpoint
+#'
+#'@param id UUID or permalink of the organization you wish to look up
+#'@param card card field of interest that will be returned. Only one please!
+#'@param parse TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object
+#'@return either a data.frame (if parse = TRUE) or a list (if parse = FALSE)
+#'
+#' @author Layla Rohkohl, \email{byehity@gmail.com}
+#'
+#' @examples
+#' lookUpDetailForOrganization(id = "facebook", card = "investors")
+#'
+#' @import httr
+#' @import jsonlite
+#' @import stringr
+#' @import dplyr
+#' @export
+#'
 # DetailedLookOrganizationForCard
 lookUpDetailForOrganization(id, card, please_parse = TRUE) {
   
@@ -91,26 +109,4 @@ lookUpDetailForOrganization(id, card, please_parse = TRUE) {
     # Print error code
     print(response$status_code)
   }
-  
-  # Check which cards is picked and get data
-  # card <- "acquiree_acquisitions"
-  # card <- "acquirer_acquisitions"
-  # card <- "child_organizations"
-  # card <- "child_ownerships"
-  # card <- "event_appearances"
-  # card <- "founders"
-  # card <- "headquarters_address"
-  # card <- "investors"
-  # card <- "ipos"
-  # card <- "jobs"
-  # card <- "parent_organization"
-  # card <- "parent_ownership"
-  # card <- "participated_funding_rounds"
-  # card <- "participated_funds"
-  # card <- "participated_investments"
-  # card <- "press_references"
-  # card <- "raised_funding_rounds"
-  # card <- "raised_funds"
-  # card <- "raised_investments"
-  
 }
