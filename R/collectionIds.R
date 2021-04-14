@@ -30,8 +30,5 @@ getCollectionIds <- function() {
   collectionids[[15]] <- "jobs"
   
   # Print out info
-  print("The following are the possible inputs for collection ids (same as paths):")
-  print("organizations, people, funding_rounds, acquisitions, investments, events, press_references, funds, event_appearances, ipos, ownerships, categories, category_groups, locations, and jobs.")
-  print("If you want to include more than one, please put them into a vector first like so:")
-  print("my_vector <- c('organizations,people')")
+  print(collectionids)
 }
