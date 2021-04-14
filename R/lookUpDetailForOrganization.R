@@ -17,7 +17,7 @@
 #' @export
 #'
 # DetailedLookOrganizationForCard
-lookUpDetailForOrganization(id, card, please_parse = TRUE) {
+lookUpDetailForOrganization <- function(id, card, please_parse = TRUE) {
   
   # Check that card is in list of cards
   if (!card %in% c("acquiree_acquisitions", 
