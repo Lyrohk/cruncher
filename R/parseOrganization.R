@@ -17,7 +17,6 @@ parseOrganization <- function(data) {
   ids <- parseIdentifier(fields = data[["cards"]][["fields"]][["identifier"]], field = "identifier")
   
   name <- listParse(data[["cards"]][["fields"]][["identifier"]])
-  uuid <- simpleParse(data[["cards"]][["fields"]][["identifier"]][["uuid"]])
   company_type <- simpleParse(data[["cards"]][["fields"]][["company_type"]])
   legal_name <- simpleParse(data[["cards"]][["fields"]][["legal_name"]])
   num_employees_enum <- simpleParse(data[["cards"]][["fields"]][["num_employees_enum"]])
@@ -110,15 +109,15 @@ parseOrganization <- function(data) {
   stock_symbol <- listParse(data[["cards"]][["fields"]][["stock_symbol"]])
   
   # Currenty parsing lists to USD
-  # last_funding_total <- currencyListParse("last_funding_total")
-  # last_equity_funding_total <- currencyListParse("last_equity_funding_total")
-  # funding_total <- currencyListParse("funding_total")
-  # valuation <- currencyListParse("valuation")
-  # equity_funding_total <- currencyListParse("equity_funding_total")
+  last_funding_total <- currencyListParse(fields_data = data[["cards"]][["fields"]][["last_funding_total"]], field = "last_funding_total")
+  last_equity_funding_total <- currencyListParse(fields_data = data[["cards"]][["fields"]][["last_equity_funding_total"]], field = "last_equity_funding_total")
+  funding_total <- currencyListParse(fields_data = data[["cards"]][["fields"]][["funding_total"]], field = "funding_total")
+  valuation <- currencyListParse(fields_data = data[["cards"]][["fields"]][["valuation"]], field = "valuation")
+  equity_funding_total <- currencyListParse(fields_data = data[["cards"]][["fields"]][["equity_funding_total"]], field = "equity_funding_total")
   
   # Return these in one dataframe (i.e. one row with all 62 columns)
   return(data.frame(cbind(ids, 
-                          name, legal_name, uuid, company_type, status, operating_status,
+                          name, legal_name, company_type, status, operating_status,
                           short_description, description, num_employees_enum, revenue_range,
                           went_public_on, ipo_status, image_url, last_funding_at, last_equity_funding_type,
                           last_funding_type, funding_stage, hub_tags, valuation_date, stock_exchange_symbol, 
@@ -127,7 +126,7 @@ parseOrganization <- function(data) {
                           num_articles,num_event_appearances,num_current_positions,num_current_advisor_positions,
                           num_diversity_spotlight_investments, num_acquisitions, num_sub_organizations, num_investments,
                           num_lead_investments, num_portfolio_organizations, rank_delta_d7, rank_delta_d30, rank_delta_d90, # Numeric done
-                          #last_funding_total, last_equity_funding_total, funding_total, valuation, equity_funding_total, # Currency list done
+                          last_funding_total, last_equity_funding_total, funding_total, valuation, equity_funding_total, # Currency list done
                           founded_on, founder_identifiers ,  location_identifiers, location_group_identifiers ,
                           categories , category_groups , website ,
                           twitter ,facebook,  linkedin ,

@@ -9,17 +9,17 @@
 #'
 #'
 # Currency Parse for lists with value and value_usd
-currencyListParse <- function(field) {
+currencyListParse <- function(fields_data, field) {
   # Check if it has content
-  if(length(data[["cards"]][["fields"]][[field]]) == 0) {
+  if(length(fields_data) == 0) {
     return(data.frame(value = NA, currency = NA, value_usd = NA)) 
   } else {
     # Get value, currency, and value_usd
-    value <- data.frame(paste(as.character(data[["cards"]][["fields"]][[field]]$value), collapse=", "))
+    value <- data.frame(paste(as.character(fields_data$value), collapse=", "))
     colnames(value) <- paste(field, sep = "_", "value")
-    currency <- data.frame(paste(as.character(data[["cards"]][["fields"]][[field]]$currency), collapse=", "))
+    currency <- data.frame(paste(as.character(fields_data$currency), collapse=", "))
     colnames(currency) <- paste(field, sep = "_", "currency")
-    value_usd <- data.frame(paste(as.character(data[["cards"]][["fields"]][[field]]$value_usd), collapse=", "))
+    value_usd <- data.frame(paste(as.character(fields_data$value_usd), collapse=", "))
     colnames(value_usd) <- paste(field, sep = "_", "value_usd")
     # Return currency data.frame
     return(cbind(value, currency, value_usd)) 
