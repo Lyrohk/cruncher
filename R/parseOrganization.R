@@ -110,11 +110,11 @@ parseOrganization <- function(data) {
   stock_symbol <- listParse(data[["cards"]][["fields"]][["stock_symbol"]])
   
   # Currenty parsing lists to USD
-  last_funding_total <- currencyListParse("last_funding_total")
-  last_equity_funding_total <- currencyListParse("last_equity_funding_total")
-  funding_total <- currencyListParse("funding_total")
-  valuation <- currencyListParse("valuation")
-  equity_funding_total <- currencyListParse("equity_funding_total")
+  # last_funding_total <- currencyListParse("last_funding_total")
+  # last_equity_funding_total <- currencyListParse("last_equity_funding_total")
+  # funding_total <- currencyListParse("funding_total")
+  # valuation <- currencyListParse("valuation")
+  # equity_funding_total <- currencyListParse("equity_funding_total")
   
   # Return these in one dataframe (i.e. one row with all 62 columns)
   return(data.frame(cbind(ids, name, legal_name, uuid, company_type, status, operating_status,
@@ -126,7 +126,7 @@ parseOrganization <- function(data) {
                           num_articles,num_event_appearances,num_current_positions,num_current_advisor_positions,
                           num_diversity_spotlight_investments, num_acquisitions, num_sub_organizations, num_investments,
                           num_lead_investments, num_portfolio_organizations, rank_delta_d7, rank_delta_d30, rank_delta_d90, # Numeric done
-                          last_funding_total, last_equity_funding_total, funding_total, valuation, equity_funding_total, # Currency list done
+                          #last_funding_total, last_equity_funding_total, funding_total, valuation, equity_funding_total, # Currency list done
                           founded_on, founder_identifiers ,  location_identifiers, location_group_identifiers ,
                           categories , category_groups , website ,
                           twitter ,facebook,  linkedin ,
