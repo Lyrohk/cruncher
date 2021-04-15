@@ -14,7 +14,7 @@
 parseOrganization <- function(data) {
   
   # Identifiers
-  ids <- parseIdentifier(fields = data[["cards"]][["fields"]], field = "identifier")
+  ids <- parseIdentifier(fields = data[["cards"]][["fields"]][["identifier"]], field = "identifier")
   
   name <- listParse(data[["cards"]][["fields"]][["identifier"]])
   uuid <- simpleParse(data[["cards"]][["fields"]][["identifier"]][["uuid"]])
