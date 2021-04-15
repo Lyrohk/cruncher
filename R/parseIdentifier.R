@@ -14,7 +14,7 @@ parseIdentifier <- function(fields_data, field) {
   # Get uuid, permalink, value, and entity id
   value <- data.frame(paste(as.character(fields_data$value), collapse=", "))
   colnames(value) <- paste(field, sep = "_", "value")
-  uuid <- data.frame(paste(as.character(dfields_data$uuid), collapse=", "))
+  uuid <- data.frame(paste(as.character(fields_data$uuid), collapse=", "))
   colnames(uuid) <- paste(field, sep = "_", "uuid")
   permalink <- data.frame(paste(as.character(fields_data$permalink), collapse=", "))
   colnames(permalink) <- paste(field, sep = "_", "permalink")
