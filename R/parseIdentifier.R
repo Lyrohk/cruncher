@@ -11,6 +11,16 @@
 #'
 # Identifier parsing function
 parseIdentifier <- function(fields_data, field) {
+  # Check if empty to return NA
+  if(length(fields_data) == 0) {
+    df <- data.frame(NA, NA, NA, NA, NA) 
+    colnames(df) <- c(paste(field, sep = "_", "uuid"), 
+                      paste(field, sep = "_", "value"),
+                      paste(field, sep = "_", "permalink"),
+                      paste(field, sep = "_", "entity_def_id"))
+    return(df)
+  }
+  
   # Get uuid, permalink, value, and entity id
   value <- data.frame(paste(as.character(fields_data$value), collapse=", "))
   colnames(value) <- paste(field, sep = "_", "value")
