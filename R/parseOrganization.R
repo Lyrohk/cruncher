@@ -110,11 +110,11 @@ parseOrganization <- function(data) {
   stock_symbol <- listParse(data[["cards"]][["fields"]][["stock_symbol"]])
   
   # Currenty parsing lists to USD
-  last_funding_total <- currencyListParse(data[["cards"]][["fields"]][["last_funding_total"]])
-  last_equity_funding_total <- currencyListParse(data[["cards"]][["fields"]][["last_equity_funding_total"]])
-  funding_total <- currencyListParse(data[["cards"]][["fields"]][["funding_total"]])
-  valuation <- currencyListParse(data[["cards"]][["fields"]][["valuation"]])
-  equity_funding_total <- currencyListParse(data[["cards"]][["fields"]][["equity_funding_total"]])
+  last_funding_total <- currencyListParse("last_funding_total")
+  last_equity_funding_total <- currencyListParse("last_equity_funding_total")
+  funding_total <- currencyListParse("funding_total")
+  valuation <- currencyListParse("valuation")
+  equity_funding_total <- currencyListParse("equity_funding_total")
   
   # Return these in one dataframe (i.e. one row with all 62 columns)
   return(data.frame(cbind(ids, name, legal_name, uuid, company_type, status, operating_status,
