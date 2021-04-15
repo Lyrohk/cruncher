@@ -12,7 +12,11 @@
 currencyListParse <- function(fields_data, field) {
   # Check if it has content
   if(length(fields_data) == 0) {
-    return(data.frame(value = NA, currency = NA, value_usd = NA)) 
+    df <- data.frame(value = NA, currency = NA, value_usd = NA) 
+    colnames(df) <- c(paste(field, sep = "_", "value"), 
+                      paste(field, sep = "_", "currency"),
+                      paste(field, sep = "_", "value_usd"))
+    return(df)
   } else {
     # Get value, currency, and value_usd
     value <- data.frame(paste(as.character(fields_data$value), collapse=", "))
