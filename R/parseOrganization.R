@@ -14,7 +14,12 @@
 parseOrganization <- function(data) {
   
   # Identifiers
-  ids <- parseIdentifier(fields = data[["cards"]][["fields"]][["identifier"]], field = "identifier")
+  ids <- parseIdentifier(fields_data = data[["cards"]][["fields"]][["identifier"]], field = "identifier")
+  founder_identifiers <- parseIdentifier(fields_data = data[["cards"]][["fields"]][["founder_identifiers"]], field = "founder_identifiers")
+  investor_identifiers <- parseIdentifier(fields_data = data[["cards"]][["fields"]][["investor_identifiers"]], field = "investor_identifiers")
+  acquirer_identifiers <- parseIdentifier(fields_data = data[["cards"]][["fields"]][["acquirer_identifiers"]], field = "acquirer_identifiers")
+  owner_identifiers <- parseIdentifier(fields_data = data[["cards"]][["fields"]][["owner_identifiers"]], field = "owner_identifiers")
+  
   
   name <- listParse(data[["cards"]][["fields"]][["identifier"]])
   company_type <- simpleParse(data[["cards"]][["fields"]][["company_type"]])
@@ -60,7 +65,6 @@ parseOrganization <- function(data) {
   rank_delta_d90 <- simpleParse(data[["cards"]][["fields"]][["rank_delta_d90"]])
   
   # Read out simple lists vs. S3 dataframe lists
-  founder_identifiers <- listParse(data[["cards"]][["fields"]][["founder_identifiers"]])
   founded_on <- listParse(data[["cards"]][["fields"]][["founded_on"]])
   # Other
   contact_email <- simpleParse(data[["cards"]][["fields"]][["contact_email"]])
@@ -91,11 +95,8 @@ parseOrganization <- function(data) {
   delisted_on <- listParse(data[["cards"]][["fields"]][["delisted_on"]])
   demo_days <- listParse(data[["cards"]][["fields"]][["demo_days"]])
   facet_ids <- listParse(data[["cards"]][["fields"]][["facet_ids"]])
-  funds_total <- listParse(data[["cards"]][["fields"]][["funds_total"]])
   investor_stage <- listParse(data[["cards"]][["fields"]][["investor_stage"]])
   investor_type <- listParse(data[["cards"]][["fields"]][["investor_type"]])
-  acquirer_identifiers <- listParse(data[["cards"]][["fields"]][["acquirer_identifiers"]])
-  owner_identifiers <- listParse(data[["cards"]][["fields"]][["owner_identifiers"]])
   location_identifiers <- listParse(data[["cards"]][["fields"]][["location_identifiers"]])
   location_group_identifiers <- listParse(data[["cards"]][["fields"]][["location_group_identifiers"]])
   categories <- listParse(data[["cards"]][["fields"]][["categories"]])
@@ -104,7 +105,6 @@ parseOrganization <- function(data) {
   twitter <- listParse(data[["cards"]][["fields"]][["twitter"]])
   facebook <- listParse(data[["cards"]][["fields"]][["facebook"]])
   linkedin <- listParse(data[["cards"]][["fields"]][["linkedin"]])
-  investor_identifiers <- listParse(data[["cards"]][["fields"]][["investor_identifiers"]])
   exited_on <- listParse(data[["cards"]][["fields"]][["exited_on"]])
   stock_symbol <- listParse(data[["cards"]][["fields"]][["stock_symbol"]])
   
@@ -114,6 +114,8 @@ parseOrganization <- function(data) {
   funding_total <- currencyListParse(fields_data = data[["cards"]][["fields"]][["funding_total"]], field = "funding_total")
   valuation <- currencyListParse(fields_data = data[["cards"]][["fields"]][["valuation"]], field = "valuation")
   equity_funding_total <- currencyListParse(fields_data = data[["cards"]][["fields"]][["equity_funding_total"]], field = "equity_funding_total")
+  funds_total <- currencyListParse(fields_data = data[["cards"]][["fields"]][["funds_total"]], field = "funds_total")
+  
   
   # Return these in one dataframe (i.e. one row with all 62 columns)
   return(data.frame(cbind(ids, 
