@@ -10,15 +10,15 @@
 #'
 #'
 # Identifier parsing function
-parseIdentifier <- function(field) {
+parseIdentifier <- function(fields_data, field) {
   # Get uuid, permalink, value, and entity id
-  value <- data.frame(paste(as.character(data[["cards"]][["fields"]][[field]]$value), collapse=", "))
+  value <- data.frame(paste(as.character(fields_data$value), collapse=", "))
   colnames(value) <- paste(field, sep = "_", "value")
-  uuid <- data.frame(paste(as.character(data[["cards"]][["fields"]][[field]]$uuid), collapse=", "))
+  uuid <- data.frame(paste(as.character(dfields_data$uuid), collapse=", "))
   colnames(uuid) <- paste(field, sep = "_", "uuid")
-  permalink <- data.frame(paste(as.character(data[["cards"]][["fields"]][[field]]$permalink), collapse=", "))
+  permalink <- data.frame(paste(as.character(fields_data$permalink), collapse=", "))
   colnames(permalink) <- paste(field, sep = "_", "permalink")
-  entity_def_id <- data.frame(paste(as.character(data[["cards"]][["fields"]][[field]]$entity_def_id), collapse=", "))
+  entity_def_id <- data.frame(paste(as.character(fields_data$entity_def_id), collapse=", "))
   colnames(entity_def_id) <- paste(field, sep = "_", "entity_def_id")
   identifier_df <- cbind(uuid, value, permalink, entity_def_id)
   # Return identifier dataframe
