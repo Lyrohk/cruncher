@@ -4,7 +4,7 @@
 \alias{currencyListParse}
 \title{Helper function to parse a currency element}
 \usage{
-currencyListParse(simpleList)
+currencyListParse(field)
 }
 \value{
 parsed output
