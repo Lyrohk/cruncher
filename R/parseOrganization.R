@@ -118,7 +118,7 @@ parseOrganization <- function(data) {
   
   
   # Return these in one dataframe (i.e. one row with all 62 columns)
-  return(data.frame(cbind(ids, 
+  df <- data.frame(cbind(ids, 
                           name, legal_name, company_type, status, operating_status,
                           short_description, description, num_employees_enum, revenue_range,
                           went_public_on, ipo_status, image_url, last_funding_at, last_equity_funding_type,
@@ -166,5 +166,7 @@ parseOrganization <- function(data) {
                           investor_type ,
                           acquirer_identifiers ,
                           owner_identifiers 
-  )))
+  ))
+  # Remove NA columns
+  return(df[colSums(!is.na(df)) > 0])
 }
