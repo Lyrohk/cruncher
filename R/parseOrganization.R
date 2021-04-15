@@ -14,7 +14,7 @@
 parseOrganization <- function(data) {
   
   # Identifiers
-  ids <- parseIdentifier("identifier")
+  #ids <- parseIdentifier("identifier")
   
   name <- listParse(data[["cards"]][["fields"]][["identifier"]])
   uuid <- simpleParse(data[["cards"]][["fields"]][["identifier"]][["uuid"]])
@@ -117,7 +117,8 @@ parseOrganization <- function(data) {
   # equity_funding_total <- currencyListParse("equity_funding_total")
   
   # Return these in one dataframe (i.e. one row with all 62 columns)
-  return(data.frame(cbind(ids, name, legal_name, uuid, company_type, status, operating_status,
+  return(data.frame(cbind(#ids, 
+                          name, legal_name, uuid, company_type, status, operating_status,
                           short_description, description, num_employees_enum, revenue_range,
                           went_public_on, ipo_status, image_url, last_funding_at, last_equity_funding_type,
                           last_funding_type, funding_stage, hub_tags, valuation_date, stock_exchange_symbol, 
