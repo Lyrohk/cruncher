@@ -4,7 +4,7 @@
 \alias{parseIdentifier}
 \title{Helper function to parse a identifier data into a dataframe}
 \usage{
-parseIdentifier(field)
+parseIdentifier(fields_data, field)
 }
 \arguments{
 \item{field}{name that contains the identifier data}
