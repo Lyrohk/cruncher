@@ -26,6 +26,9 @@ lookUpJob <- function(id, please_parse = TRUE)  {
     stop("Please enter a uuid or permalink for the person you wish to look up. You can find them manually from the browser or csv files.")
   }
   
+  # Entity id check e.g. to lower, trimming whitespace, and replacing spaces with -
+  id <- entityIdCheck(id)
+  
   # Create the path
   url <- paste0("https://api.crunchbase.com/api/v4/entities/jobs/", id, "?card_ids=fields&user_key=", API_KEY)
   
