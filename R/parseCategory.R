@@ -1,4 +1,4 @@
-#' Function to parse Category Group Entity from JSON list to Data.frame
+#' Function to parse Category Entity from JSON list to Data.frame
 #'
 #'@param data Returned fields card response in json list form for the entity 
 #'@return  a data.frame of parsed output
@@ -6,11 +6,11 @@
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
 #'
 #' @examples
-#' parseCategoryGroup(data$cards$fields)
+#' parseCategory(data$cards$fields)
 #'
 #'
-# Parse Person Entity
-parseCategoryGroup <- function(data) {
+# Parse Category Entity
+parseCategory <- function(data) {
   
   # Identifier
   ids <- parseIdentifier(data[["identifier"]], "identifier")
@@ -20,12 +20,12 @@ parseCategoryGroup <- function(data) {
   created_at <- simpleParse(data[["created_at"]])
   updated_at <- simpleParse( data[["updated_at"]])
   # List parse
-  categories <- listParse(data[["categories"]])
+  category_groups <- listParse(data[["category_groups"]])
   
   
   # Return as dataframe
   df <- data.frame(cbind(ids,
-                         categories, 
+                         category_groups, 
                          rank,
                          created_at,
                          updated_at

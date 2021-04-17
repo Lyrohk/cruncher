@@ -1,6 +1,6 @@
-#' Function to lookup a single category group over the Entity Lookup API Endpoint
+#' Function to lookup a single category over the Entity Lookup API Endpoint
 #'
-#'@param id UUID or permalink of the category group you wish to look up
+#'@param id UUID or permalink of the category you wish to look up
 #'@param parse TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object
 #'@return either a data.frame (if parse = TRUE) or a list (if parse = FALSE)
 #'
@@ -13,8 +13,8 @@
 #' @import jsonlite
 #' @export
 #'
-# Call the function to get you information about a category group entity
-lookupCategoryGroup <- function(id, please_parse = TRUE)  {
+# Call the function to get you information about a category entity
+lookupCategory <- function(id, please_parse = TRUE)  {
   
   # Check that API_KEY exists
   if (!exists("API_KEY")) {
@@ -27,7 +27,7 @@ lookupCategoryGroup <- function(id, please_parse = TRUE)  {
   }
   
   # Create the path
-  url <- paste0("https://api.crunchbase.com/api/v4/entities/category_groups/", id, "?card_ids=fields&user_key=", API_KEY)
+  url <- paste0("https://api.crunchbase.com/api/v4/entities/categories/", id, "?card_ids=fields&user_key=", API_KEY)
   
   # Make http GET request
   response <- RETRY(verb = "GET", url = url) # Could use GET but someone may apply it with a list
@@ -39,7 +39,7 @@ lookupCategoryGroup <- function(id, please_parse = TRUE)  {
     if (please_parse) {
       
       # Parse category group to return a dataframe
-      return(parseCategoryGroup(data$cards$fields))
+      return(parseCategory(data$cards$fields))
       
     } else {
       # Return data
