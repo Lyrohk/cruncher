@@ -95,6 +95,6 @@ lookUpInvestment <- function(id, please_parse = TRUE)  {
     }
   } else {
     # Print error code
-    print(response$status_code)
+    printError(response$status_code)
   }
 }
