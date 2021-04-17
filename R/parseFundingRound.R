@@ -29,7 +29,8 @@ parseFundingRound <- function(data) {
   funded_organization_funding_stage <- simpleParse(data[["funded_organization_funding_stage"]])
   rank_funding_round <- simpleParse(data[["rank_funding_round"]])
   rank <- simpleParse(data[["rank"]])
-  funded_organization_revenue_range <- simpleParse(data[["funded_organization_revenue_range"]])
+  # Add revenue converter
+  funded_organization_revenue_range <- convertRevenueRange(simpleParse(data[["funded_organization_revenue_range"]]))
   num_partners <- simpleParse(data[["num_partners"]])
   num_relationships <- simpleParse(data[["num_relationships"]])
   created_at <- simpleParse(data[["created_at"]])
@@ -94,6 +95,8 @@ parseFundingRound <- function(data) {
   df$money_raised_value_usd <- as.numeric(df$money_raised_value_usd)
   df$target_money_raised_value <- as.numeric(df$target_money_raised_value)
   df$target_money_raised_value_usd <- as.numeric(df$target_money_raised_value_usd)
+  df$funded_organization_funding_total_value <- as.numeric(df$funded_organization_funding_total_value) 
+  df$funded_organization_funding_total_value_usd <- as.numeric(df$funded_organization_funding_total_value_usd) 
   
   # as binary
   df$is_equity <- as.logical(df$is_equity)
