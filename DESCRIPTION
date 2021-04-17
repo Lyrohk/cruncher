@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "layla.rohkohl@web.de",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: This package helps those with a research Crunchbase API key to easily interact with the endpoints search, autocomplete and entity lookup. All that is required is the key.
+Description: This package helps those with a research Crunchbase API key to easily interact with the endpoints search, autocomplete and entity lookup. All that is required is the key. Happy crunching!
 License: `use_mit_license()`
 Encoding: UTF-8
 LazyData: true

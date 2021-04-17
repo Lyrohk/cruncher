@@ -14,7 +14,7 @@
 parsePerson <- function(data) {
   
   # Identifier
-  ids <- parseIdentifier(data[["identifier"]])
+  ids <- parseIdentifier(data[["identifier"]], "identifier")
   
   # Simple parse character or numeric elements
   first_name <- simpleParse(data[["first_name"]])
