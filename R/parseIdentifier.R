@@ -13,7 +13,7 @@
 parseIdentifier <- function(fields_data, field) {
   # Check if empty to return NA
   if(length(fields_data) == 0) {
-    df <- data.frame(NA, NA, NA, NA, NA) 
+    df <- data.frame(NA, NA, NA, NA) 
     colnames(df) <- c(paste(field, sep = "_", "uuid"), 
                       paste(field, sep = "_", "value"),
                       paste(field, sep = "_", "permalink"),

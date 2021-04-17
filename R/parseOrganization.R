@@ -117,7 +117,7 @@ parseOrganization <- function(data) {
   funds_total <- currencyListParse(fields_data = data[["cards"]][["fields"]][["funds_total"]], field = "funds_total")
   
   
-  # Return these in one dataframe (i.e. one row with all 62 columns)
+  # Return these in one dataframe 
   return(data.frame(cbind(ids, 
                           name, legal_name, company_type, status, operating_status,
                           short_description, description, num_employees_enum, revenue_range,
