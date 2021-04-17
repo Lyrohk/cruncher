@@ -23,7 +23,7 @@ parseFundingRound <- function(data) {
   investment_type <- simpleParse(data[["investment_type"]])
   short_description <- simpleParse(data[["short_description"]])
   funded_organization_description <- simpleParse(data[["funded_organization_description"]])
-  is_equity <- simpleParse(data[["is_equity"]]) #BOOLEAN!
+  is_equity <- simpleParse(data[["is_equity"]]) 
   num_investors <- simpleParse(data[["num_investors"]])
   investment_stage <- simpleParse(data[["investment_stage"]])
   funded_organization_funding_stage <- simpleParse(data[["funded_organization_funding_stage"]])
@@ -42,11 +42,11 @@ parseFundingRound <- function(data) {
   funded_organization_categories <- listParse(data[["funded_organization_categories"]])
   
   # Currency list parsing
-  funded_organization_funding_total <- currencyListParse(data[["funded_organization_funding_total"]])
-  pre_money_valuation <- currencyListParse(data[["pre_money_valuation"]])
-  post_money_valuation <- currencyListParse(data[["post_money_valuation"]])
-  money_raised <- currencyListParse(data[["money_raised"]])
-  target_money_raised <- currencyListParse(data[["target_money_raised"]])
+  funded_organization_funding_total <- currencyListParse(data[["funded_organization_funding_total"]], "funded_organization_funding_total")
+  pre_money_valuation <- currencyListParse(data[["pre_money_valuation"]], "pre_money_valuation")
+  post_money_valuation <- currencyListParse(data[["post_money_valuation"]], "post_money_valuation")
+  money_raised <- currencyListParse(data[["money_raised"]], "money_raised")
+  target_money_raised <- currencyListParse(data[["target_money_raised"]], "target_money_raised")
   
   # Put into one dateframe
   df <- data.frame(cbind(ids,
