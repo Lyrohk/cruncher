@@ -28,7 +28,11 @@ lookUpPersons <- function(persons, please_parse = TRUE) {
   # Return requested output
   if (please_parse) {
     # Return a dataframe with each row having all the information about a certain organization
-    return(do.call(rbind.data.frame, lapply(X = persons, FUN = lookUpPerson)))
+    df <- do.call(rbind.data.frame, lapply(X = persons, FUN = lookUpPerson))
+    # Filter out NA columns
+    df <- df[colSums(!is.na(df)) > 0]
+    # Return as data.frame
+    return(df)
   } else {
     # Return the data converted from json as lists
     return(do.call(list, lapply(X = persons, FUN = lookUpPerson, please_parse = FALSE)))
