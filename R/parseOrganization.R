@@ -65,6 +65,7 @@ parseOrganization <- function(data) {
   rank_delta_d90 <- simpleParse(data[["cards"]][["fields"]][["rank_delta_d90"]])
   investor_stage <- simpleParse(data[["cards"]][["fields"]][["investor_stage"]])
   investor_type <- simpleParse(data[["cards"]][["fields"]][["investor_type"]])
+  aliases <- simpleParse(data[["cards"]][["fields"]][["aliases"]])
   
   
   # Read out simple lists vs. S3 dataframe lists
@@ -93,7 +94,6 @@ parseOrganization <- function(data) {
   school_method <- simpleParse(data[["cards"]][["fields"]][["school_method"]])
   school_program <- simpleParse(data[["cards"]][["fields"]][["school_program"]])
   school_type <- simpleParse(data[["cards"]][["fields"]][["school_type"]])
-  aliases <- listParse(data[["cards"]][["fields"]][["aliases"]])
   closed_on <- listParse(data[["cards"]][["fields"]][["closed_on"]])
   delisted_on <- listParse(data[["cards"]][["fields"]][["delisted_on"]])
   demo_days <- listParse(data[["cards"]][["fields"]][["demo_days"]])
