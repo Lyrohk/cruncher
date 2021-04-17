@@ -86,10 +86,10 @@ parseFundingRound <- function(data) {
   df$num_partners <- as.numeric(df$num_partners)
   df$num_relationships <- as.numeric(df$num_relationships)
   df$num_investors <- as.numeric(df$num_investors)
-  df$pre_money_valuation <- as.numeric(df$pre_money_valuation)
+  #df$pre_money_valuation <- as.numeric(df$pre_money_valuation)
   df$post_money_valuation <- as.numeric(df$post_money_valuation)
   df$money_raised <- as.numeric(df$money_raised)
-  df$target_money_raised <- as.numeric(df$target_money_raised)
+  #df$target_money_raised <- as.numeric(df$target_money_raised)
   
   # as Date
   df$announced_on <- as.Date(df$announced_on)
