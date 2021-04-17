@@ -63,6 +63,9 @@ parseOrganization <- function(data) {
   rank_delta_d7 <- simpleParse(data[["cards"]][["fields"]][["rank_delta_d7"]])
   rank_delta_d30 <- simpleParse(data[["cards"]][["fields"]][["rank_delta_d30"]])
   rank_delta_d90 <- simpleParse(data[["cards"]][["fields"]][["rank_delta_d90"]])
+  investor_stage <- simpleParse(data[["cards"]][["fields"]][["investor_stage"]])
+  investor_type <- simpleParse(data[["cards"]][["fields"]][["investor_type"]])
+  
   
   # Read out simple lists vs. S3 dataframe lists
   founded_on <- listParse(data[["cards"]][["fields"]][["founded_on"]])
@@ -95,8 +98,6 @@ parseOrganization <- function(data) {
   delisted_on <- listParse(data[["cards"]][["fields"]][["delisted_on"]])
   demo_days <- listParse(data[["cards"]][["fields"]][["demo_days"]])
   facet_ids <- listParse(data[["cards"]][["fields"]][["facet_ids"]])
-  investor_stage <- listParse(data[["cards"]][["fields"]][["investor_stage"]])
-  investor_type <- listParse(data[["cards"]][["fields"]][["investor_type"]])
   location_identifiers <- listParse(data[["cards"]][["fields"]][["location_identifiers"]])
   location_group_identifiers <- listParse(data[["cards"]][["fields"]][["location_group_identifiers"]])
   categories <- listParse(data[["cards"]][["fields"]][["categories"]])
