@@ -29,7 +29,7 @@ lookupAquisitions <- function(acquisitions, please_parse = TRUE, cut_na_cols = T
   # Return requested output
   if (please_parse) {
     # Return a dataframe with each row having all the information about a certain organization
-    df <- do.call(rbind.data.frame, lapply(X = acquisitions, FUN = lookUpAquisition))
+    df <- do.call(rbind.data.frame, lapply(X = acquisitions, FUN = lookupAquisition))
     if (cut_na_cols) {
       # Filter out na columns
       return(df[colSums(!is.na(df)) > 0])
@@ -38,6 +38,6 @@ lookupAquisitions <- function(acquisitions, please_parse = TRUE, cut_na_cols = T
     }
   } else {
     # Return the data converted from json as lists
-    return(do.call(list, lapply(X = acquisitions, FUN = lookUpAquisition, please_parse = FALSE)))
+    return(do.call(list, lapply(X = acquisitions, FUN = lookupAquisition, please_parse = FALSE)))
   }
 }
