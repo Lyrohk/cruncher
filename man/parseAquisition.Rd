@@ -18,7 +18,6 @@ Function to parse Aquisition Entity from JSON list to Data.frame
 \examples{
 parseAquisition(data$cards$fields)
 
-
 }
 \author{
 Layla Rohkohl, \email{byehity@gmail.com}
