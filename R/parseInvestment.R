@@ -61,13 +61,12 @@ parseInvestment <- function(data) {
                                                "venture_capital" = "Venture Capital",
                                                "venture_debt" = "Venture Debt")) 
   is_lead_investor <- simpleParse(data[["is_lead_investor"]])
-  funding_round_investment_type <- simpleParse(data[["funding_round_investment_type"]])
   created_at <- simpleParse(data[["created_at"]])
   updated_at <- simpleParse(data[["updated_at"]])
   
   # Currency List parsing
   money_invested <- currencyListParse(data[["money_invested"]], "money_invested")
-  funding_round_money_raised <- currencyListParse(data[["funding_round_money_raised"]])
+  funding_round_money_raised <- currencyListParse(data[["funding_round_money_raised"]], "funding_round_money_raised")
   
   # Put into one dateframe
   df <- data.frame(cbind(  ids ,
@@ -79,7 +78,6 @@ parseInvestment <- function(data) {
                            funding_round_identifier ,
                            organization_identifier ,
                            partner_identifiers, # Identifier parsing done
-                           funding_round_investment_type,
                            announced_on ,
                            created_at ,
                            updated_at, # Simple parsing done
