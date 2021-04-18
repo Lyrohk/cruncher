@@ -14,7 +14,7 @@
 #' @export
 #'
 # Call the function to get you information about an acquisition
-lookUpAquisition <- function(id, please_parse = TRUE)  {
+lookupAquisition <- function(id, please_parse = TRUE)  {
   
   # Check that API_KEY exists
   if (!exists("API_KEY")) {

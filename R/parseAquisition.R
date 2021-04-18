@@ -8,6 +8,7 @@
 #' @examples
 #' parseAquisition(data$cards$fields)
 #'
+#'@import stringr
 #'
 # Parse Aquisition Entity
 parseAquisition <- function(data) {
@@ -21,15 +22,19 @@ parseAquisition <- function(data) {
   acquiree_short_description <- simpleParse(data[["acquiree_short_description"]])
   status <- simpleParse(data[["status"]])
   rank_acquisition <- simpleParse(data[["rank_acquisition"]])
-  acquiree_revenue_range <- simpleParse(data[["acquiree_revenue_range"]])
-  acquirer_revenue_range <- simpleParse(data[["acquirer_revenue_range"]]) 
-  acquirer_funding_stage <- simpleParse(data[["acquirer_funding_stage"]])
+  # Apply revenue converter
+  acquiree_revenue_range <- convertRevenueRange(simpleParse(data[["acquiree_revenue_range"]]))
+  acquirer_revenue_range <- convertRevenueRange(simpleParse(data[["acquirer_revenue_range"]])) 
+  # Apply funding stage converter
+  acquirer_funding_stage <- convertFundingStage(simpleParse(data[["acquirer_funding_stage"]])) 
+  # Apply funding type converter
+  acquiree_last_funding_type <- convertFundingType(simpleParse(data[["acquiree_last_funding_type"]]))
   acquisition_type <- simpleParse(data[["acquisition_type"]])
   acquiree_num_funding_rounds <- simpleParse(data[["acquiree_num_funding_rounds"]])
   acquirer_num_funding_rounds <- simpleParse(data[["acquirer_num_funding_rounds"]])
-  acquiree_last_funding_type <- simpleParse(data[["acquiree_last_funding_type"]])
   created_at <- simpleParse(data[["created_at"]])
-  terms <- simpleParse(data[["terms"]])
+  # Apply terms converter
+  terms <- convertTerms(simpleParse(data[["terms"]]))  
   updated_at <- simpleParse(data[["updated_at"]])
   
   # List parsing
@@ -56,10 +61,10 @@ parseAquisition <- function(data) {
                            acquiree_revenue_range ,
                            acquirer_revenue_range ,
                            acquirer_funding_stage ,
+                           acquiree_last_funding_type ,
                            acquisition_type ,
                            acquiree_num_funding_rounds ,
                            acquirer_num_funding_rounds ,
-                           acquiree_last_funding_type ,
                            created_at ,
                            terms ,
                            updated_at, # Simple parsing done
@@ -87,7 +92,7 @@ parseAquisition <- function(data) {
   # as numeric
   df$acquiree_num_funding_rounds <- as.numeric(df$acquiree_num_funding_rounds)
   df$acquirer_num_funding_rounds <- as.numeric(df$acquirer_num_funding_rounds)
-  
+  df$rank_acquisition <- as.numeric(df$rank_acquisition)
   # as date
   df$announced_on <- as.Date(df$announced_on)
   df$created_at <- as.Date(df$created_at)
