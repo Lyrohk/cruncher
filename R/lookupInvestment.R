@@ -14,7 +14,7 @@
 #' @export
 #'
 # Call the function to get you information about an investment
-lookUpInvestment <- function(id, please_parse = TRUE)  {
+lookupInvestment <- function(id, please_parse = TRUE)  {
   
   # Check that API_KEY exists
   if (!exists("API_KEY")) {
@@ -42,52 +42,7 @@ lookUpInvestment <- function(id, please_parse = TRUE)  {
     if (please_parse) {
       
       # Parse investment to return a dataframe
-      # Simple parsing
-      permalink <- simpleParse(data[["properties"]][["identifier"]][["permalink"]])
-      uuid <- simpleParse(data[["properties"]][["identifier"]][["uuid"]])
-      name <- simpleParse(data[["properties"]][["identifier"]][["value"]])
-      # Field simple parsing
-      announced_on <- simpleParse(data[["cards"]][["fields"]][["announced_on"]])
-      investor_type <- simpleParse(data[["cards"]][["fields"]][["investor_type"]])
-      funding_round_investment_type <- simpleParse(data[["cards"]][["fields"]][["funding_round_investment_type"]])
-      is_lead_investor <- simpleParse(data[["cards"]][["fields"]][["is_lead_investor"]])
-      created_at <- simpleParse(data[["cards"]][["fields"]][["created_at"]])
-      updated_at <- simpleParse(data[["cards"]][["fields"]][["updated_at"]])
-      
-      # List parsing
-      investor_identifier <- listParse(data[["cards"]][["fields"]][["investor_identifier"]])
-      funding_round_identifier <- listParse(data[["cards"]][["fields"]][["funding_round_identifier"]])
-      organization_identifier <- listParse(data[["cards"]][["fields"]][["organization_identifier"]])
-      # Currency List parsing
-      funding_round_money_raised <- currencyListParse(data[["cards"]][["fields"]][["funding_round_money_raised"]])
-      
-      # Put into one dateframe
-      df <- data.frame(cbind(  uuid ,
-                               permalink,
-                               name,
-                               announced_on ,
-                               investor_type ,
-                               funding_round_investment_type,
-                               is_lead_investor ,
-                               created_at ,
-                               updated_at, # Simple parsing done
-                               investor_identifier ,
-                               funding_round_identifier ,
-                               organization_identifier , # List parsing
-                               funding_round_money_raised # Currency list parsing done
-                               
-      ))
-      
-      # Adjust classes
-      # as numeric
-      df$funding_round_money_raised <- as.numeric(df$funding_round_money_raised)
-      # as date
-      df$announced_on <- as.Date(df$announced_on)
-      df$created_at <- as.Date(df$created_at)
-      df$updated_at <- as.Date(df$updated_at)
-      
-      # Return dataframe
-      df
+      return(parseInvestment(data$cards$fields))
       
     } else {
       # Return data
