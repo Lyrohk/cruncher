@@ -17,11 +17,11 @@
 #' @export
 #'
 # DetailedLookOrganizationForCard
-lookUpDetailForOrganization <- function(id, card, please_parse = TRUE) {
-  
+lookupDetailForOrganization <- function(id, card, please_parse = TRUE) {
+
   # Check that card is in list of cards
-  if (!card %in% c("acquiree_acquisitions", 
-                  "acquirer_acquisitions", 
+  if (!card %in% c("acquiree_acquisitions",
+                  "acquirer_acquisitions",
                   "child_organizations",
                   "event_appearances",
                   "founders",
@@ -42,32 +42,32 @@ lookUpDetailForOrganization <- function(id, card, please_parse = TRUE) {
     getOrganizationCards()
     stop()
   }
-  
+
   # Check that API_KEY exists
   if (!exists("API_KEY")) {
     stop("Please set a valid user key to API_KEY as an environmental variable or for use setAPIKey() to do it for you.")
   }
-  
-  # Check that id has been specified 
+
+  # Check that id has been specified
   if (missing(id)) {
     stop("Please enter a uuid or permalink for the person you wish to look up. You can find them manually from the browser or csv files.")
   }
-  
+
   # Create the path
   url <- paste0("https://api.crunchbase.com/api/v4/entities/organizations/", id, "/cards/", card, "?user_key=", API_KEY)
-  
+
   # Make http GET request
   response <- RETRY(verb = "GET", url = url) # Could use GET but someone may apply it with a list
-  
+
   # Check if we get valid data, if not return error core
   if (response$status_code == 200) {
     data <- fromJSON(rawToChar(response$content))
     # Check if parsing is wanted
     if (please_parse) {
-      
+
       # Initialize df
-      
-      # Based on card, parse differently 
+
+      # Based on card, parse differently
       if (card %in% c("acquiree_acquisitions", "acquirer_acquisitions")) {
         parseAquisition(data)
       } else if (card %in% c("child_organizations","parent_organization") ) {
@@ -95,12 +95,12 @@ lookUpDetailForOrganization <- function(id, card, please_parse = TRUE) {
       } else {
         # TODO Parse PRINIPAL TYPE OF "investors"
       }
-      
+
       # Check length of df (if 100, get next df and rbind to original)
-      
-      
-      
-      
+
+
+
+
     } else {
       # Return data
       return(data)

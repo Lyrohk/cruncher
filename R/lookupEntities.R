@@ -14,6 +14,15 @@
 #'
 # Lookup multiple entities
 lookupEntities <- function(entities, path, please_parse = TRUE) {
+
+  #TODO Add cut_na_cols to all functions
+  # if (cut_na_cols) {
+  #   # Filter out na columns
+  #   return(df[colSums(!is.na(df)) > 0])
+  # } else {
+  #   return(df)
+  # }
+
   # Check entities for class type
   if (!class(entities) %in% c("list", "character")) {
     stop("Please ensure that the entities are either a character vector or a list of character elements.")

@@ -14,51 +14,51 @@
 #' @export
 #'
 # Call the function to get you information about an job
-lookUpJob <- function(id, please_parse = TRUE)  {
-  
+lookupJob <- function(id, please_parse = TRUE)  {
+
   # Check that API_KEY exists
   if (!exists("API_KEY")) {
     stop("Please set a valid user key to API_KEY as an environmental variable or for use setAPIKey() to do it for you.")
   }
-  
-  # Check that id has been specified 
+
+  # Check that id has been specified
   if (missing(id)) {
     stop("Please enter a uuid or permalink for the person you wish to look up. You can find them manually from the browser or csv files.")
   }
-  
+
   # Entity id check e.g. to lower, trimming whitespace, and replacing spaces with -
   id <- entityIdCheck(id)
-  
+
   # Create the path
   url <- paste0("https://api.crunchbase.com/api/v4/entities/jobs/", id, "?card_ids=fields&user_key=", API_KEY)
-  
+
   # Make http GET request
   response <- RETRY(verb = "GET", url = url) # Could use GET but someone may apply it with a list
-  
+
   # Check if we get valid data, if not return error core
   if (response$status_code == 200) {
     data <- fromJSON(rawToChar(response$content))
     # Check if parsing is wanted
     if (please_parse) {
-      
+
       # Parse job to return a dataframe
       # Simple parsing
       permalink <- simpleParse(data[["properties"]][["identifier"]][["permalink"]])
       uuid <- simpleParse(data[["properties"]][["identifier"]][["uuid"]])
       name <- simpleParse(data[["properties"]][["identifier"]][["value"]])
-      
+
       is_current <- simpleParse(data[["cards"]][["fields"]][["is_current"]])
       short_description <- simpleParse(data[["cards"]][["fields"]][["short_description"]])
       title <- simpleParse(data[["cards"]][["fields"]][["title"]])
       job_type <- simpleParse(data[["cards"]][["fields"]][["job_type"]])
       created_at <- simpleParse(data[["cards"]][["fields"]][["created_at"]])
       updated_at <- simpleParse(data[["cards"]][["fields"]][["updated_at"]])
-      
+
       # List parsing
       person <- listParse(data[["cards"]][["fields"]][["person_identifier"]])
       organization <- listParse(data[["cards"]][["fields"]][["organization_identifier"]])
       ended_on <- listParse(data[["cards"]][["fields"]][["ended_on"]])
-      
+
       # Put into one dateframe
       df <- data.frame(cbind(  uuid ,
                                permalink,
@@ -72,18 +72,18 @@ lookUpJob <- function(id, please_parse = TRUE)  {
                                person,
                                organization,
                                ended_on #Check
-                               
+
       ))
-      
+
       # Adjust classes
       # as date
       df$ended_on <- as.Date(df$ended_on,format="%Y-%m-%d")
       df$created_at <- as.Date(df$created_at)
       df$updated_at <- as.Date(df$updated_at)
-      
+
       # Return dataframe
       df
-      
+
     } else {
       # Return data
       return(data)

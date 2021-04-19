@@ -14,27 +14,6 @@
 #' @export
 #'
 # Lookup multiple organizations
-lookUpOrganizations <- function(organizations, please_parse = TRUE) {
-  # Check organizations for class type
-  if (!class(organizations) %in% c("list", "character")) {
-    stop("Please ensure that the organizations are either a character vector or a list of character elements.")
-  }
-  
-  # Check logical
-  if (!class(please_parse) == "logical") {
-    stop("Please use a TRUE or FALSE as input for please_parse.")
-  }
-  
-  # Return requested output
-  if (please_parse) {
-    # Return a dataframe with each row having all the information about a certain organization
-    df <- do.call(rbind.data.frame, lapply(X = organizations, FUN = lookUpOrganization))
-    # Filter out NA columns
-    df <- df[colSums(!is.na(df)) > 0]
-    # Return as data.frame
-    return(df)
-  } else {
-    # Return the data converted from json as lists
-    return(do.call(list, lapply(X = organizations, FUN = lookUpOrganization, please_parse = FALSE)))
-  }
+lookupOrganizations <- function(organizations, please_parse = TRUE) {
+  return(lookupEntities(entities = organizations, path = "organizations", please_parse = please_parse))
 }

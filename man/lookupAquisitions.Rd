@@ -4,7 +4,7 @@
 \alias{lookupAquisitions}
 \title{Function to lookup a multiple acquisitions over the Entity Lookup API Endpoint}
 \usage{
-lookupAquisitions(acquisitions, please_parse = TRUE, cut_na_cols = TRUE)
+lookupAquisitions(acquisitions, please_parse = TRUE)
 }
 \arguments{
 \item{acquisitions}{UUID or permalink of the acquisitions you wish to look up}
