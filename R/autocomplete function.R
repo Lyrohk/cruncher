@@ -24,12 +24,12 @@ autocomplete <-
            collection_ids = "organizations,people,funding_rounds,acquisitions,investments,events,press_references,funds,event_appearances,ipos,ownerships,categories,category_groups,locations,jobs",
            limit = 10) {
     # Check API Key
-    API_KEY = Sys.getenv("API_KEY")
-    if (API_KEY == "") {
-      stop(
-        "Please set your Crunchbase API Key with the setAPIKey(). Please note that the basic access is not sufficient."
-      )
-    }
+    # API_KEY = Sys.getenv("API_KEY")
+    # if (API_KEY == "") {
+    #   stop(
+    #     "Please set your Crunchbase API Key with the setAPIKey(). Please note that the basic access is not sufficient."
+    #   )
+    # }
     # Check bounds of limit
     if (limit > 25 | limit < 1) {
       stop("Limit must be between 1 and 25. Please try again within this range.")
@@ -38,12 +38,12 @@ autocomplete <-
     if (query == "") {
       stop("Query is a required parameter.")
     }
-    
+
     # # String manipulations of query
     query <- query %>%
       str_to_lower() %>%
       str_replace_all(" ", "%20")
-    
+
     # Now make the Autocomplete API call
     url <-
       paste0(
@@ -58,15 +58,15 @@ autocomplete <-
         limit
       )
     response <- GET(url)
-    
+
     # Check that it worked
     if (response$status_code == 200) {
       # Return data from JSON
       data <- fromJSON(rawToChar(response$content))
-      
+
       # Print df
       print(data[["entities"]])
-      
+
       # Return this df
       df <- data[["entities"]]
     } else {
