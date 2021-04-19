@@ -83,6 +83,6 @@ autocomplete <-
       df <- data[["entities"]]
     } else {
       # Return error code
-      print(response$status_code)
+      printError(response$status_code)
     }
   }
