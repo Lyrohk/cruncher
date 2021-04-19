@@ -18,7 +18,7 @@ either a data.frame (if parse = TRUE) or a list (if parse = FALSE)
 Function to lookup a single job over the Entity Lookup API Endpoint
 }
 \examples{
-lookUpJob("uuid")
+lookupJob("id")
 
 }
 \author{
