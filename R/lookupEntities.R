@@ -70,6 +70,8 @@ lookupEntities <- function(entities, path, please_parse = TRUE) {
     my_fun <- lookupOwnership
   } else if (path == "locations") {
     my_fun <- lookupLocation
+  } else if (path == "addresses") {
+    my_fun <- lookupAddress
   } else {
     # Path was not recognized, stop here
     stop("Path was not recognized. Please check your spelling before trying again.")

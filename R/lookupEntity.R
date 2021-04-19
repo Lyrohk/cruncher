@@ -80,6 +80,8 @@ lookupEntity <- function(id, path, please_parse = TRUE) {
         return(parseOwnership(field_data))
       } else if (path == "locations") {
         return(parseLocation(field_data))
+      } else if (path == "addresses") {
+        return(parseAddress(field_data))
       } else {
         # Path was not recognized, stop here
         stop("Path was not recognized. Please check your spelling before trying again.")

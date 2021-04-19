@@ -12,7 +12,7 @@
 # Helper function to view all paths possible
 getPaths <- function() {
   # Print paths as list
-  paths <- vector(mode = "list", length = 15)
+  paths <- vector(mode = "list", length = 16)
   paths[[1]] <- "organizations"
   paths[[2]] <- "people"
   paths[[3]] <- "funding_rounds"
@@ -28,7 +28,8 @@ getPaths <- function() {
   paths[[13]] <- "category_groups"
   paths[[14]] <- "locations"
   paths[[15]] <- "jobs"
-  
-  # Print out 
+  paths[[16]] <- "addresses"
+
+  # Print out
   return(paths)
 }
