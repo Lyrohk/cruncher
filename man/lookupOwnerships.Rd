@@ -18,8 +18,8 @@ either a data.frame (if please_parse = TRUE) or a list of lists (if please_parse
 Function to lookup a multiple ownerships over the Entity Lookup API Endpoint
 }
 \examples{
-lookupOwnerships(c("3fa85f64-5717-4562-b3fc-2c963f66afa6", "uuid2"))
-lookupOwnerships(list("3fa85f64-5717-4562-b3fc-2c963f66afa6", "uuid2"))
+lookupOwnerships(c("f8fd68de-edf9-410a-9730-2f8f280a2cdd", "wayra-owns-wayra-uk-call--7e753e5c"))
+lookupOwnerships(list("f8fd68de-edf9-410a-9730-2f8f280a2cdd", "wayra-owns-wayra-uk-call--7e753e5c"))
 
 }
 \author{
