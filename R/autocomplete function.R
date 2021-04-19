@@ -1,14 +1,14 @@
 #' Function to use the Autocomplete API endpoint of Crunchbase API
 #'
-#'@param collection_ids Within which path the matching to the query should be performed e.g. organizations
-#'@param query What we are looking for e.g. "Europe" in locations, "Artificial Intelligence" in categories
+#'@param search_for search_for we are looking for e.g. "Europe" in locations, "Artificial Intelligence" in categories
+#'@param within A comma separated list of collection ids to search against e.g. "categories,category_groups". Defaults to all.
 #'@param limit Number of entries to be returned at most (min 1, default 10, max 25)
-#'@return the entities matching the query within the specified collection_ids and with the limit specified
+#'@return the entities matching the search_for within the specified within and with the limit specified
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
 #'
 #' @examples
-#' autocomplete(collection_ids = "categories", query = "Artificial Intelligence", limit = 5)
+#' autocomplete(search_for = "Artificial Intelligence", within = "categories", limit = 5)
 #'
 #' @import httr
 #' @import jsonlite
@@ -17,11 +17,11 @@
 #' @export
 #'
 # Autocomplete function
-# Query: What are you looking for e.g. "Artificial Intelligence" category uuids.
+# search_for: What are you looking for e.g. "Artificial Intelligence" category uuids.
 # Collection Ids: Within which entities should we look for matches? e.g. categories, category_groups
 autocomplete <-
-  function(query,
-           collection_ids = "organizations,people,funding_rounds,acquisitions,investments,events,press_references,funds,event_appearances,ipos,ownerships,categories,category_groups,locations,jobs",
+  function(search_for,
+           within = "",
            limit = 10) {
     # Check API Key
     # API_KEY = Sys.getenv("API_KEY")
@@ -34,29 +34,41 @@ autocomplete <-
     if (limit > 25 | limit < 1) {
       stop("Limit must be between 1 and 25. Please try again within this range.")
     }
-    # Check that query exists
-    if (query == "") {
-      stop("Query is a required parameter.")
+
+    # Check that search_for exists
+    if (search_for == "") {
+      stop("search_for is a required parameter.")
     }
 
-    # # String manipulations of query
-    query <- query %>%
+    # # String manipulations of search_for
+    search_for <- search_for %>%
       str_to_lower() %>%
       str_replace_all(" ", "%20")
 
+    # Check if within are specified
+    url <- ifelse(within == "",
+           paste0(
+             "https://api.crunchbase.com/api/v4/autocompletes",
+             "?user_key=",
+             API_KEY,
+             "&query=",
+             search_for,
+             "&limit=",
+             limit
+           ),
+           paste0(
+             "https://api.crunchbase.com/api/v4/autocompletes",
+             "?user_key=",
+             API_KEY,
+             "&collection_ids=",
+             within,
+             "&query=",
+             search_for,
+             "&limit=",
+             limit
+           ))
+
     # Now make the Autocomplete API call
-    url <-
-      paste0(
-        "https://api.crunchbase.com/api/v4/autocompletes",
-        "?user_key=",
-        API_KEY,
-        "&collection_ids=",
-        collection_ids,
-        "&query=",
-        query,
-        "&limit=",
-        limit
-      )
     response <- GET(url)
 
     # Check that it worked

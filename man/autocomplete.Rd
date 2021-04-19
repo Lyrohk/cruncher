@@ -4,28 +4,23 @@
 \alias{autocomplete}
 \title{Function to use the Autocomplete API endpoint of Crunchbase API}
 \usage{
-autocomplete(
-  query,
- 
-    collection_ids = "organizations,people,funding_rounds,acquisitions,investments,events,press_references,funds,event_appearances,ipos,ownerships,categories,category_groups,locations,jobs",
-  limit = 10
-)
+autocomplete(search_for, within = "", limit = 10)
 }
 \arguments{
-\item{query}{What we are looking for e.g. "Europe" in locations, "Artificial Intelligence" in categories}
+\item{search_for}{search_for we are looking for e.g. "Europe" in locations, "Artificial Intelligence" in categories}
 
-\item{collection_ids}{Within which path the matching to the query should be performed e.g. organizations}
+\item{within}{A comma separated list of collection ids to search against e.g. "categories,category_groups". Defaults to all.}
 
 \item{limit}{Number of entries to be returned at most (min 1, default 10, max 25)}
 }
 \value{
-the entities matching the query within the specified collection_ids and with the limit specified
+the entities matching the search_for within the specified within and with the limit specified
 }
 \description{
 Function to use the Autocomplete API endpoint of Crunchbase API
 }
 \examples{
-autocomplete(collection_ids = "categories", query = "Artificial Intelligence", limit = 5)
+autocomplete(search_for = "Artificial Intelligence", within = "categories", limit = 5)
 
 }
 \author{
