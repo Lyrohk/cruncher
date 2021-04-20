@@ -13,9 +13,8 @@
 #' @import httr
 #' @import jsonlite
 #'
-#' @export
 #'
-lookupEntity <- function(id, path, please_parse = TRUE) {
+lookupEntity <- function(id, path, card = "fields", please_parse = TRUE) {
   # Check that API_KEY exists
   if (!exists("API_KEY")) {
     stop("Please set a valid user key to API_KEY as an environmental variable or for use setAPIKey() to do it for you.")
@@ -32,7 +31,7 @@ lookupEntity <- function(id, path, please_parse = TRUE) {
   # Check that path is in the possible range
 
   # Create the path
-  url <- paste0("https://api.crunchbase.com/api/v4/entities/", path, "/", id, "?card_ids=fields&user_key=", API_KEY)
+  url <- paste0("https://api.crunchbase.com/api/v4/entities/", path, "/", id, "?card_ids=", card, "&user_key=", API_KEY)
 
   # Make http GET request
   response <- RETRY(verb = "GET", url = url) # Could use GET but someone may apply it with a list
@@ -44,7 +43,7 @@ lookupEntity <- function(id, path, please_parse = TRUE) {
     if (please_parse) {
 
       # Extract out the property fields
-      field_data <- data$cards$fields
+      field_data <- data$cards[[card]]
 
       # TODO COmplete and hook up to individual lookupEntity functions to reduce boilerplate code
       # Parse depending on path to return a dataframe

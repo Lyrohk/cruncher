@@ -23,6 +23,7 @@ lookupDetailForOrganization <- function(id, card, please_parse = TRUE) {
   if (!card %in% c("acquiree_acquisitions",
                   "acquirer_acquisitions",
                   "child_organizations",
+                  "child_ownerships",
                   "event_appearances",
                   "founders",
                   "headquarters_address",
