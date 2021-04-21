@@ -4,7 +4,7 @@
 \alias{searchForEntity}
 \title{Function to search for some entities matching certain search criteria over the Search API Endpoint}
 \usage{
-searchForEntity(conditions, order_by, sort_by, path, no_results)
+searchForEntity(path, conditions, order_by, sort_by, result_limit, uuids_only)
 }
 \arguments{
 \item{path}{The path to the entity e.g. organizations, people, etc.}

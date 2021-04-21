@@ -1,4 +1,4 @@
-#' Function to parse Organization Entity from JSON list to Data.frame
+#' Function to parse Principal Entity from JSON list to Data.frame
 #'
 #'@param data Returned response in json list form for the entity
 #'@return  a data.frame of parsed output
@@ -6,13 +6,12 @@
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
 #'
 #' @examples
-#' lookUpOrganization("facebook")
+#' parsePrincipal(data$fields)
 #'
 #'@import stringr
-#' @export
 #'
 # Call the function to get you parse information about an entity
-parseOrganization <- function(data) {
+parsePrincipal <- function(data) {
 
   # Identifiers
   ids <- parseIdentifier(fields_data = data[["identifier"]], field = "identifier")
@@ -53,6 +52,7 @@ parseOrganization <- function(data) {
                                   "private" = "Private",
                                   "public" = "Public"
                                 ))
+  image_id <- simpleParse(data[["image_id"]])
   image_url <- simpleParse(data[["image_url"]])
   last_equity_funding_type <- str_replace_all(simpleParse(data[["last_equity_funding_type"]]),
                                               pattern = c(
@@ -153,9 +153,50 @@ parseOrganization <- function(data) {
   rank_delta_d7 <- simpleParse(data[["rank_delta_d7"]])
   rank_delta_d30 <- simpleParse(data[["rank_delta_d30"]])
   rank_delta_d90 <- simpleParse(data[["rank_delta_d90"]])
-  investor_stage <- simpleParse(data[["investor_stage"]])
-  investor_type <- simpleParse(data[["investor_type"]])
+  investor_stage <- str_replace_all(simpleParse(data[["investor_stage"]]),
+                                    pattern = c(
+                                      "convertible_note" = "Convertible Note",
+                                      "crowdfunding" = "Crowdfunding",
+                                      "debt" = "Debt",
+                                      "early_stage_venture" = "Early Stage Venture",
+                                      "grant" = "Grant",
+                                      "late_stage_venture" = "Late Stage Venture",
+                                      "initial_coin_offering" = "Initial Coin Offering",
+                                      "non_equity_assistance" = "Non-equity Assistance",
+                                      "post_ipo" = "Post-Ipo",
+                                      "private_equity" = "Private Equity",
+                                      "secondary_market" = "Secondary Market",
+                                      "seed" = "Seed",
+                                      "venture " = "Venture"
+                                    ))
+  investor_type <- str_replace_all(simpleParse(data[["investor_type"]]),
+                                   pattern = c(
+                                     "accelerator" - "Accelerator",
+                                     "angel" - "Individual/Angel",
+                                     "angel_group" - "Angel Group",
+                                     "co_working_space" - "Co-Working Space",
+                                     "corporate_venture_capital" - "Corporate Venture Capital",
+                                     "entrepreneurship_program" - "Entrepreneurship Program",
+                                     "family_investment_office" - "Family Investment Office",
+                                     "fund_of_funds" - "Fund Of Funds",
+                                     "government_office" - "Government Office",
+                                     "hedge_fund" - "Hedge Fund",
+                                     "incubator" - "Incubator",
+                                     "investment_bank" - "Investment Bank",
+                                     "investment_partner" - "Investment Partner",
+                                     "micro_vc" - "Micro VC",
+                                     "pension_funds" - "Pension Funds",
+                                     "private_equity_firm" - "Private Equity Firm",
+                                     "secondary_purchaser" - "Secondary Purchaser",
+                                     "startup_competition" - "Startup Competition",
+                                     "syndicate" - "Syndicate",
+                                     "university_program" - "University Program",
+                                     "venture_capital" - "Venture Capital",
+                                     "venture_debt" - "Venture Debt"
+                                   ))
   aliases <- simpleParse(data[["aliases"]])
+  born_on <- simpleParse(data[["born_on"]])
+  died_on <- simpleParse(data[["died_on"]])
 
 
   # Read out simple lists vs. S3 dataframe lists
@@ -176,6 +217,7 @@ parseOrganization <- function(data) {
                                       "c_05001_10000" = "5001-10000",
                                       "c_10001_max" = "10001+"
                                     ))
+  num_jobs <- simpleParse(data[["num_jobs"]])
   num_exits <- simpleParse(data[["num_exits"]])
   num_exits_ipo <- simpleParse(data[["num_exits_ipo"]])
   num_founder_alumni <- simpleParse(data[["num_founder_alumni"]])
@@ -191,6 +233,7 @@ parseOrganization <- function(data) {
   rank_org_company <- simpleParse(data[["rank_org_company"]])
   rank_org_school <- simpleParse(data[["rank_org_school"]])
   rank_principal <- simpleParse(data[["rank_principal"]])
+  rank_person <- simpleParse(data[["rank_person"]])
   rank_principal_investor <- simpleParse(data[["rank_principal_investor"]])
   school_method <-str_replace_all(simpleParse(data[["school_method"]]),
                                   pattern = c(
@@ -210,14 +253,23 @@ parseOrganization <- function(data) {
                                     ))
   school_type <-str_replace_all(simpleParse(data[["school_type"]]),
                                 pattern = c(
-                                  "for_profit_private" = "Private",
-                                  "non_profit_private" = "Private (Non-Profit)",
-                                  "public" = "Public"
+                                  "for_profit_private" - "Private",
+                                  "non_profit_private" - "Private (Non-Profit)",
+                                  "public" - "Public"
                                 ))
+  facet_ids <- simpleParse(data[["facet_ids"]])
+  first_name <- simpleParse(data[["first_name"]])
+  last_name <- simpleParse(data[["last_name"]])
+  gender <- simpleParse(data[["gender"]])
+  num_founded_organizations <- simpleParse(data[["num_founded_organizations"]])
+  num_partner_investments <- simpleParse(data[["num_partner_investments"]])
+  primary_job_title <- simpleParse(data[["primary_job_title"]])
+
+
+  # List parsing
   closed_on <- listParse(data[["closed_on"]])
   delisted_on <- listParse(data[["delisted_on"]])
   demo_days <- listParse(data[["demo_days"]])
-  facet_ids <- listParse(data[["facet_ids"]])
   location_identifiers <- listParse(data[["location_identifiers"]])
   location_group_identifiers <- listParse(data[["location_group_identifiers"]])
   categories <- listParse(data[["categories"]])
@@ -228,6 +280,7 @@ parseOrganization <- function(data) {
   linkedin <- listParse(data[["linkedin"]])
   exited_on <- listParse(data[["exited_on"]])
   stock_symbol <- listParse(data[["stock_symbol"]])
+  primary_organization <- listParse(data[["primary_organization"]])
 
   # Currenty parsing lists to USD
   last_funding_total <- currencyListParse(fields_data = data[["last_funding_total"]], field = "last_funding_total")
@@ -240,14 +293,27 @@ parseOrganization <- function(data) {
 
   # Return these in one dataframe
   return(data.frame(cbind(ids,
-                           legal_name, company_type, status, operating_status,
+                          first_name,
+                          last_name,
+                          gender,
+                          primary_job_title,
+                          primary_organization,
+                          legal_name, company_type, status, operating_status,
                           short_description, description, num_employees_enum, revenue_range,
-                          went_public_on, ipo_status, image_url, last_funding_at, last_equity_funding_type,
+                          went_public_on, ipo_status,
+                          image_url,
+                          image_id,
+                          last_funding_at, last_equity_funding_type,
                           last_funding_type, funding_stage, hub_tags, valuation_date, stock_exchange_symbol,
                           listed_stock_symbol, website_url, updated_at, created_at, # Characters done
-                          rank_org, num_founders, num_lead_investors, num_investors, num_funding_rounds,
+                          rank_org,
+                          rank_person,
+                          num_founders, num_lead_investors, num_investors, num_funding_rounds,
                           num_articles,num_event_appearances,num_current_positions,num_current_advisor_positions,
-                          num_diversity_spotlight_investments, num_acquisitions, num_sub_organizations, num_investments,
+                          num_diversity_spotlight_investments,
+                          num_jobs,
+                          num_partner_investments,
+                          num_acquisitions, num_sub_organizations, num_investments,
                           num_lead_investments, num_portfolio_organizations, rank_delta_d7, rank_delta_d30, rank_delta_d90, # Numeric done
                           last_funding_total, last_equity_funding_total, funding_total, valuation, equity_funding_total, # Currency list done
                           founded_on, founder_identifiers ,  location_identifiers, location_group_identifiers ,
@@ -264,6 +330,7 @@ parseOrganization <- function(data) {
                           num_funds ,
                           num_investments_funding_rounds ,
                           num_past_positions ,
+                          num_founded_organizations,
                           num_relationships ,
                           phone_number ,
                           program_application_deadline ,
@@ -279,6 +346,8 @@ parseOrganization <- function(data) {
                           school_type ,
                           aliases ,
                           closed_on ,
+                          born_on,
+                          died_on,
                           delisted_on ,
                           demo_days ,
                           facet_ids ,
