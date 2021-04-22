@@ -2,15 +2,15 @@
 % Please edit documentation in R/getFundingTypes.R
 \name{getFundingTypes}
 \alias{getFundingTypes}
-\title{Helper function to return funding type dictionary}
+\title{Helper function to return funding types dictionary}
 \usage{
 getFundingTypes()
 }
 \value{
-a dictionary of all funding type key and value pairs
+a dictionary
 }
 \description{
-Helper function to return funding type dictionary
+Helper function to return funding types dictionary
 }
 \examples{
 getFundingTypes()

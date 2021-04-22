@@ -18,13 +18,7 @@ parseEventAppearance <- function(data) {
 
   # Simple parsing
   appearance_type <- str_replace_all(simpleParse(data[["appearance_type"]]),
-                                     pattern = c(
-                                       "contestant" = "Contestant",
-                                       "exhibitor" = "Exhibitor",
-                                       "organizer" = "Organizer",
-                                       "speaker" = "Speaker",
-                                       "sponsor" = "Sponsor"
-                                     ))
+                                     pattern = getEventAppearanceTypes())
   rank <- simpleParse(data[["rank"]])
   short_description <- simpleParse(data[["short_description"]])
   starts_on <- simpleParse(data[["event_starts_on"]])

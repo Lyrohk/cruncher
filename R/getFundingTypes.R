@@ -1,6 +1,6 @@
-#' Helper function to return funding type dictionary
+#' Helper function to return funding types dictionary
 #'
-#'@return a dictionary of all funding type key and value pairs
+#'@return a dictionary
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
 #'

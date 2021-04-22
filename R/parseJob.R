@@ -25,13 +25,7 @@ parseJob <- function(data) {
   short_description <- simpleParse(data[["short_description"]])
   title <- simpleParse(data[["title"]])
   job_type <- str_replace_all(simpleParse(data[["job_type"]]),
-                              pattern = c(
-                                "advisor" = "Advisor",
-                                "board_member" = "Board Member",
-                                "board_observer" = "Board Observer",
-                                "employee" = "Non-Executive Employee",
-                                "executive" = "Executive"
-                              ))
+                              pattern = getJobTypes())
 
 
   created_at <- simpleParse(data[["created_at"]])

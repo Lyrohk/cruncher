@@ -23,23 +23,12 @@ parseOrganization <- function(data) {
 
 
   company_type <- str_replace_all(simpleParse(data[["company_type"]]),
-                                  pattern = c("for_profit" = "For Profit",
-                                              "non_profit" = "Non-profit"))
+                                  pattern = getCompanyTypes())
 
 
   legal_name <- simpleParse(data[["legal_name"]])
   num_employees_enum <- str_replace_all(simpleParse(data[["num_employees_enum"]]),
-                                        pattern = c(
-                                          "c_00001_00010" = "1-10",
-                                          "c_00011_00050" = "11-50",
-                                          "c_00051_00100" = "51-100",
-                                          "c_00101_00250" = "101-250",
-                                          "c_00251_00500" = "251-500",
-                                          "c_00501_01000" = "501-1000",
-                                          "c_01001_05000" = "1001-5000",
-                                          "c_05001_10000" = "5001-10000",
-                                          "c_10001_max" = "10001+"
-                                        ))
+                                        pattern = getEmployeeRanges())
   operating_status <- simpleParse(data[["operating_status"]])
   status <- simpleParse(data[["status"]])
   revenue_range <-convertRevenueRange(simpleParse(data[["revenue_range"]]))
@@ -48,91 +37,21 @@ parseOrganization <- function(data) {
   went_public_on <- simpleParse(data[["went_public_on"]])
   description <- simpleParse(data[["description"]])
   ipo_status <- str_replace_all(simpleParse(data[["ipo_status"]]),
-                                pattern = c(
-                                  "delisted" = "Delisted",
-                                  "private" = "Private",
-                                  "public" = "Public"
-                                ))
+                                pattern = getIpoStatus())
   image_url <- simpleParse(data[["image_url"]])
   last_equity_funding_type <- str_replace_all(simpleParse(data[["last_equity_funding_type"]]),
-                                              pattern = c(
-                                                "angel" = "Angel",
-                                                "convertible_note" = "Convertible Note",
-                                                "corporate_round" = "Corporate Round",
-                                                "debt_financing" = "Debt Financing",
-                                                "equity_crowdfunding" = "Equity Crowdfunding",
-                                                "grant" = "Grant",
-                                                "initial_coin_offering" = "Initial Coin Offering",
-                                                "non_equity_assistance" = "Non-equity Assistance",
-                                                "post_ipo_debt" = "Post-IPO Debt",
-                                                "post_ipo_equity" = "Post-IPO Equity",
-                                                "post_ipo_secondary" = "Post-IPO Secondary",
-                                                "pre_seed" = "Pre-Seed",
-                                                "private_equity" = "Private Equity",
-                                                "product_crowdfunding" = "Product Crowdfunding",
-                                                "secondary_market" = "Secondary Market",
-                                                "seed" = "Seed",
-                                                "series_a" = "Series A",
-                                                "series_b" = "Series B",
-                                                "series_c" = "Series C",
-                                                "series_d" = "Series D",
-                                                "series_e" = "Series E",
-                                                "series_f" = "Series F",
-                                                "series_g" = "Series G",
-                                                "series_h" = "Series H",
-                                                "series_i" = "Series I",
-                                                "series_j" = "Series J",
-                                                "series_unknown" = "Venture - Series Unknown",
-                                                "undisclosed" = "Undisclosed"
-                                              )
-  )
+                                              pattern = getFundingTypes())
   hub_tags <- simpleParse(data[["hub_tags"]])
   valuation_date <- simpleParse(data[["valuation_date"]])
   last_funding_type <- str_replace_all(simpleParse(data[["last_funding_type"]]),
-                                       pattern = c(
-                                         "angel" = "Angel",
-                                         "convertible_note" = "Convertible Note",
-                                         "corporate_round" = "Corporate Round",
-                                         "debt_financing" = "Debt Financing",
-                                         "equity_crowdfunding" = "Equity Crowdfunding",
-                                         "grant" = "Grant",
-                                         "initial_coin_offering" = "Initial Coin Offering",
-                                         "non_equity_assistance" = "Non-equity Assistance",
-                                         "post_ipo_debt" = "Post-IPO Debt",
-                                         "post_ipo_equity" = "Post-IPO Equity",
-                                         "post_ipo_secondary" = "Post-IPO Secondary",
-                                         "pre_seed" = "Pre-Seed",
-                                         "private_equity" = "Private Equity",
-                                         "product_crowdfunding" = "Product Crowdfunding",
-                                         "secondary_market" = "Secondary Market",
-                                         "seed" = "Seed",
-                                         "series_a" = "Series A",
-                                         "series_b" = "Series B",
-                                         "series_c" = "Series C",
-                                         "series_d" = "Series D",
-                                         "series_e" = "Series E",
-                                         "series_f" = "Series F",
-                                         "series_g" = "Series G",
-                                         "series_h" = "Series H",
-                                         "series_i" = "Series I",
-                                         "series_j" = "Series J",
-                                         "series_unknown" = "Venture - Series Unknown",
-                                         "undisclosed" = "Undisclosed"
-                                       ))
+                                       pattern = getFundingTypes())
   created_at <- simpleParse(data[["created_at"]])
   last_funding_at <- simpleParse(data[["last_funding_at"]])
   listed_stock_symbol <- simpleParse(data[["listed_stock_symbol"]])
   website_url <- simpleParse(data[["website_url"]])
   updated_at <- simpleParse(data[["updated_at"]])
   funding_stage <-str_replace_all(simpleParse(data[["funding_stage"]]),
-                                  pattern = c(
-                                    "early_stage_venture" = "Early Stage Venture",
-                                    "ipo" = "IPO",
-                                    "late_stage_venture" = "Late Stage Venture",
-                                    "m_and_a" = "M&A",
-                                    "private_equity" = "Private Equity",
-                                    "seed" = "Seed"
-                                  ))
+                                  pattern = getFundingStages())
 
   # Numeric elements
   rank_org <- simpleParse(data[["rank_org"]])
@@ -165,17 +84,7 @@ parseOrganization <- function(data) {
   layout_id <- simpleParse(data[["layout_id"]])
   num_alumni <- simpleParse(data[["num_alumni"]])
   num_enrollments <-str_replace_all(simpleParse(data[["num_enrollments"]]),
-                                    pattern = c(
-                                      "c_00001_00010" = "1-10",
-                                      "c_00011_00050" = "11-50",
-                                      "c_00051_00100" = "51-100",
-                                      "c_00101_00250" = "101-250",
-                                      "c_00251_00500" = "251-500",
-                                      "c_00501_01000" = "501-1000",
-                                      "c_01001_05000" = "1001-5000",
-                                      "c_05001_10000" = "5001-10000",
-                                      "c_10001_max" = "10001+"
-                                    ))
+                                    pattern = getEnrollmentsRanges())
   num_exits <- simpleParse(data[["num_exits"]])
   num_exits_ipo <- simpleParse(data[["num_exits_ipo"]])
   num_founder_alumni <- simpleParse(data[["num_founder_alumni"]])
@@ -193,27 +102,11 @@ parseOrganization <- function(data) {
   rank_principal <- simpleParse(data[["rank_principal"]])
   rank_principal_investor <- simpleParse(data[["rank_principal_investor"]])
   school_method <-str_replace_all(simpleParse(data[["school_method"]]),
-                                  pattern = c(
-                                    "on_compus" = "On Campus",
-                                    "online" = "Online",
-                                    "online_and_on_campus" = "Online and On Campus"
-                                  ))
+                                  pattern = getSchoolMethods())
   school_program <- str_replace_all(simpleParse(data[["school_program"]]),
-                                    pattern = c(
-                                      "bootcamp" = "Bootcamp",
-                                      "community_college" = "Community College",
-                                      "four_year_university" = "Four Year University",
-                                      "graduate_university" = "Graduate University",
-                                      "high_school" = "High School",
-                                      "trade_school" = "Trade School",
-                                      "two_year_university" = "Two Year University"
-                                    ))
+                                    pattern = getSchoolPrograms())
   school_type <-str_replace_all(simpleParse(data[["school_type"]]),
-                                pattern = c(
-                                  "for_profit_private" = "Private",
-                                  "non_profit_private" = "Private (Non-Profit)",
-                                  "public" = "Public"
-                                ))
+                                pattern = getSchoolTypes())
   closed_on <- listParse(data[["closed_on"]])
   delisted_on <- listParse(data[["delisted_on"]])
   demo_days <- listParse(data[["demo_days"]])

@@ -24,21 +24,7 @@ parseEvent <- function(data) {
   ends_on <- simpleParse(data[["ends_on"]])
   num_sponsors <- simpleParse(data[["num_sponsors"]])
   event_type <- str_replace_all(simpleParse(data[["event_type"]]),
-                                pattern = c(
-                                  "class" = "Class",
-                                  "competition" = "Competition",
-                                  "conference" = "Conference",
-                                  "demo_day" = "Demo Day",
-                                  "expo" = "Expo",
-                                  "festival" = "Festival",
-                                  "hackathon" = "Hackathon",
-                                  "meetup" = "Meetup",
-                                  "networking" = "Networking",
-                                  "other" = "Other",
-                                  "seminar" = "Seminar",
-                                  "virtual" = "Virtual",
-                                  "webinar" = "Webinar"
-                                ))
+                                pattern = getEventTypes())
   num_speakers <- simpleParse(data[["num_speakers"]])
   num_contestants <- simpleParse(data[["num_contestants"]])
   num_organizers <- simpleParse(data[["num_organizers"]])

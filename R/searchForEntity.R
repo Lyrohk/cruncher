@@ -16,6 +16,8 @@
 #'
 searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, uuids_only) {
 
+  # TODO API key check
+
   # Check that search_conditions exists and is a data.frame with at least one row
   if (missing(conditions)) {
     stop("The argument search_conditions needs to be specified. Use rbind with the created searchCondition() function.")
@@ -32,11 +34,9 @@ searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, u
 
   # Functionality section ####
   field_ids <- "identifier"
-  order <- data.frame("field_id" = order_by,
-                      "sort" = sort_by)
+  order <- data.frame("field_id" = order_by, "sort" = sort_by)
   query <- conditions
-  limit <- 2000 #Max; min 1; default 100
-  #after_id <- "blub"
+  limit <- 1000 #Max; min 1; default 100; max 2000
 
   # Construct JSON body as list
   json_list <- list(field_ids, order, query, limit)
@@ -48,23 +48,63 @@ searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, u
                     body = toJSON(json_list),
                     encode = "json")
 
+  # Check if we get valid data, if not return error core
+  if (response$status_code == 200) {
 
+    # Get initial data and the number of total entities
+    data <- fromJSON(rawToChar(response$content))
 
-  # Parse it into readable content
-  data <- fromJSON(rawToChar(response$content))
+    # Get total count of entities
+    num_total_entities <- data$count
 
-  # Get total count of entities
-  total_entities <- data$count
+    # Print out how many counts we have
+    cat(paste("The Search Result has", num_total_entities, "results. Please wait while the results are being fetched.\n"))
 
-  # TODO Paginate through if no result limit or result limit above returned number of results
+    # Get entity uuids
+    entity_uuids <- data.frame("uuid" = data[["entities"]][["uuid"]])
 
-  # Get entity uuids
-  entity_uuids <- data[["entities"]][["uuid"]]
+    # Get number of entities returned
+    num_returned_entities <- NROW(entity_uuids)
+    cat(paste("The number of returned uuids currently amounts to",  num_returned_entities, "\n"))
 
-  # Return wanted output
-  if (uuids_only) {
-    return(entity_uuids)
+    # Check if num_total_entities more than returned ones
+    while (num_total_entities > num_returned_entities) {
+      # Put last uuid as after_id parameter to the body
+      json_list$after_id <- tail(entity_uuids, 1)
+
+      # Request the next batch of uuids
+      response <- RETRY(verb = "POST",
+                        url = paste0("https://api.crunchbase.com/api/v4/searches/", path, "?user_key=", API_KEY),
+                        body = toJSON(json_list),
+                        encode = "json")
+
+      # Get next data
+      data <- fromJSON(rawToChar(response$content))
+
+      # Get next uuids
+      next_uuids <- data.frame("uuid" = data[["entities"]][["uuid"]])
+
+      # Combine next batch to current batch
+      entity_uuids <- rbind(entity_uuids, next_uuids)
+
+      # Update the current number of returned entities
+      num_returned_entities <- NROW(entity_uuids)
+      cat(paste("The number of returned uuids currently amounts to",  num_returned_entities, "\n"))
+      }
+
+    # Return wanted output
+    if (uuids_only) {
+      # Return uuids as is
+      return(entity_uuids)
+    } else {
+      # Inform user that uuids are retrived and now information is being looked up
+      cat(paste("Cruncher has retrieved all entity uuids. Now information is going to be fetched for each uuid via the Entity Lookup API.\n"))
+
+      # Get information via Entity Lookup API Endpoint
+      return(lookupEntities(entities = entity_uuids$uuid, path = path, please_parse = T))
+    }
   } else {
-    return(lookupEntities(entities = entity_uuids, path = path, please_parse = T))
+    # Print error code
+    printError(response$status_code)
   }
 }

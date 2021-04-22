@@ -15,14 +15,6 @@
 # Lookup multiple entities
 lookupEntities <- function(entities, path, please_parse = TRUE) {
 
-  #TODO Add cut_na_cols to all functions
-  # if (cut_na_cols) {
-  #   # Filter out na columns
-  #   return(df[colSums(!is.na(df)) > 0])
-  # } else {
-  #   return(df)
-  # }
-
   # Check entities for class type
   if (!class(entities) %in% c("list", "character")) {
     stop("Please ensure that the entities are either a character vector or a list of character elements.")
@@ -77,14 +69,18 @@ lookupEntities <- function(entities, path, please_parse = TRUE) {
     stop("Path was not recognized. Please check your spelling before trying again.")
   }
 
+  # Approximation of how long it is expect to take to retrieve the information (50 pro 30 sek)
+  approx_duration_min = length(entities)/ 100;
+  # Print out approximate duration
+  cat(paste("Expect this process to take around", approx_duration_min, "minute(s) and wait for cruncher to finish crunching...\n"))
+
+
   # Return requested output
   if (please_parse) {
     # Return a dataframe with each row having all the information about a certain entities
     df <- do.call(rbind.data.frame, lapply(X = entities, FUN = my_fun))
-    # Filter out NA columns
-    df <- df[colSums(!is.na(df)) > 0]
-    # Return as data.frame
-    return(df)
+    # Filter out na columns
+    return(df[colSums(!is.na(df)) > 0])
   } else {
     # Return the data converted from json as lists
     return(do.call(list, lapply(X = entities, FUN = my_fun, please_parse = FALSE)))

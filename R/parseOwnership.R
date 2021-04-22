@@ -21,13 +21,7 @@ parseOwnership <- function(data) {
   created_at <- simpleParse(data[["created_at"]])
   updated_at <- simpleParse(data[["updated_at"]])
   ownership_type <- str_replace_all(simpleParse(data[["ownership_type"]]),
-                                    pattern = c(
-                                      "affiliated_company" = "Affiliated Company",
-                                      "division" = "Division",
-                                      "investment_arm" = "Investment Arm",
-                                      "joint_venture" = "Joint Venture",
-                                      "subsidiary" = "Subsidiary"
-                                    ))
+                                    pattern = getOwnershipTypes())
 
   # Put into one dateframe
   df <- data.frame(cbind(  ids ,
