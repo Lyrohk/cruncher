@@ -70,7 +70,7 @@ searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, u
     # Check if num_total_entities more than returned ones
     while (num_total_entities > num_returned_entities) {
       # Put last uuid as after_id parameter to the body
-      json_list$after_id <- tail(entity_uuids, 1)
+      json_list$after_id <- tail(entity_uuids$uuid, 1)
 
       # Request the next batch of uuids
       response <- RETRY(verb = "POST",

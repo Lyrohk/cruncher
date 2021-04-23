@@ -20,6 +20,16 @@ lookupEntities <- function(entities, path, please_parse = TRUE) {
     stop("Please ensure that the entities are either a character vector or a list of character elements.")
   }
 
+  # String check
+  entities <- lapply(entities, entityIdCheck)
+
+  # Check uniqueness
+  original_length <- length(entities)
+  entities <- unique(entities)
+  if (original_length > length(entities)) {
+    cat(paste("The uuids contained", original_length - length(entities), "duplicate(s). Duplicates are removed for efficiency purposes.\n"))
+  }
+
   # Check logical
   if (!class(please_parse) == "logical") {
     stop("Please use a TRUE or FALSE as input for please_parse.")
