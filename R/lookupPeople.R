@@ -14,6 +14,6 @@
 #' @export
 #'
 # Lookup multiple organizations
-lookupPersons <- function(persons, please_parse = TRUE) {
+lookupPeople <- function(persons, please_parse = TRUE) {
   return(lookupEntities(entities = persons, path = "people", please_parse = please_parse))
 }

@@ -33,19 +33,22 @@ searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, u
 
 
   # Functionality section ####
-  field_ids <- "identifier"
-  order <- data.frame("field_id" = order_by, "sort" = sort_by)
+  field_ids <- c("identifier")
+  order <- data.frame(field_id = order_by, sort = sort_by)
   query <- conditions
-  limit <- 1000 #Max; min 1; default 100; max 2000
+  limit <- 1000L #Max; default 50; max 1000
 
   # Construct JSON body as list
   json_list <- list(field_ids, order, query, limit)
   names(json_list) <- c("field_ids", "order", "query", "limit")
 
+  # Print json
+  print(json_list)
+
   # Make POST request
   response <- RETRY(verb = "POST",
                     url = paste0("https://api.crunchbase.com/api/v4/searches/", path, "?user_key=", API_KEY),
-                    body = toJSON(json_list),
+                    body = json_list,
                     encode = "json")
 
   # Check if we get valid data, if not return error core
@@ -72,10 +75,17 @@ searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, u
       # Put last uuid as after_id parameter to the body
       json_list$after_id <- tail(entity_uuids$uuid, 1)
 
+      names(json_list) <- c("field_ids", "order", "query", "limit", "after_id")
+
+
+      # Print last uuid
+      print(paste("Last uuid is", json_list$after_id))
+      print(json_list)
+
       # Request the next batch of uuids
       response <- RETRY(verb = "POST",
                         url = paste0("https://api.crunchbase.com/api/v4/searches/", path, "?user_key=", API_KEY),
-                        body = toJSON(json_list),
+                        body = json_list,
                         encode = "json")
 
       # Get next data

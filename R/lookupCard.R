@@ -18,7 +18,7 @@
 #' @import stringr
 #' @import dplyr
 #'
-lookupCard <- function(id, path, card, parser, initial_data) {
+lookupCard <- function(id, path, card, initial_data) {
 
   # Quick to failure section ####
 
@@ -31,9 +31,6 @@ lookupCard <- function(id, path, card, parser, initial_data) {
   }
   if (missing(card)) {
     stop("A card needs to be specified in the (hidden) lookupCard function.")
-  }
-  if (missing(parser)) {
-    stop("A parsing function needs to be specified in the (hidden) lookupCard function.")
   }
 
   # Check that path is part of the available ones
@@ -49,7 +46,17 @@ lookupCard <- function(id, path, card, parser, initial_data) {
   # Entity id check
   id <- entityIdCheck(id)
 
+  # Get right parser
+  parsingFun <- getParserForCard(card)
+
   # Let the lookup begin! ####
+
+  # Get first 100 results
+
+  # If 100, get next until all are returned
+
+  # Return final data.frame or list
+
 
 
 

@@ -1,0 +1,40 @@
+---
+title: "Intermediate Example"
+author: "Layla Rohkohl"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Intermediate Example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# (2/3) The Intermediate Example
+
+Second example! Let's lookup something related to an entity. Concrete example: we want to know how experienced the investors of a certain organization really are.
+
+
+## Setup
+
+Before you do anything else, you will need to install and load the library cruncher into your workspace. You can use devtools to get cruncher. After you have installed it, simple load it by calling the following command.
+
+```{r setup, warning=FALSE,message=FALSE,error=FALSE}
+library(cruncher)
+
+API_KEY <- "yourResearchCrunchbaseAPIKEY"
+```
+
+Please note that all the functions in this example will fail unless you've specified your API_KEY. As soon as you've done this, they will return to you the requested data, provided you have the research access to the Crunchbase API.
+
+## Pagination Made Easy
+
+
+
+
+
+## Conclusion
+
+We have taken it a step further and looked at beyond the basic properties of an entity to look through another specific card. But until now, we still assume we know about which specific entity we want to have information about, i.e. we know its permalink or uuid which are required for the Entity Lookup API endpoint. In the advanced example, we throw this assumption out of the window and get serious! See you there!
+
+
+

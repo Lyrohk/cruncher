@@ -1,0 +1,94 @@
+---
+title: "Advanced Example"
+author: "Layla Rohkohl"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Advanced Example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# (3/3) The Advanced Example
+
+Now that you've seen the initial easy example (1/3), it is time to explore all three endpoints that Crunchbase API offers. So far, we looked at the Entity Lookup API, which requires already an entity uuid or permalink for usage. In the first example, we assumed that we know this uuid or permalink information. Now we relax this assumption and ask ourselves a practice example: what if we want to lookup information about startups that were founded after 2010 in Germany? We don't know their names or permalink/uuid information, so how do we go about this?
+
+The answer is by leveraging the other two endpoints.
+
+The Autocomplete API: as a helping API to lookup specific uuids for e.g. certain categories. And the Search API to look for entities that fulfill certain criteria. So let's get setup.
+
+
+## Setup
+
+Before you do anything else, you will need to install and load the library cruncher into your workspace. You can use devtools to get cruncher. After you have installed it, simple load it by calling the following command.
+
+```{r setup, warning=FALSE,message=FALSE,error=FALSE}
+library(cruncher)
+
+API_KEY <- "yourResearchCrunchbaseAPIKEY"
+```
+
+Please note that all the functions in this example will fail unless you've specified your API_KEY. As soon as you've done this, they will return to you the requested data, provided you have the research access to the Crunchbase API.
+
+## Framing our Problem
+
+What do we want? We want startups, that is organizations. Great. Founded in 2010 or later. That's our first condition. Our second condition is that these organizations founded in 2010 or later must be AI companies. In Crunchbase API terms, this refers to the category of an organization. We need to specify two search conditions for the Search API but how do we know which fields, operators and values to use?
+
+```{r check searchConditions documentation}
+?searchCondition
+```
+
+In this search condition, we see that we need subject (a field), a verb (operator), and an object (value). The fields we find over the Swaggerhub documentation page. It is founded_on for the first search condition, and categories for the second search condition.
+
+But what operators do we use?
+
+```{r check operators}
+getOperators()
+```
+
+Alright. This helper function returns us all available operators. For the first search condition, we will need gte (greater than or equal) and for the second we will use "includes". The values for year are clear: it is simply the number 2010. Therefore we can already specify the first search condition.
+
+```{r specify first search condition}
+first_search_condition <- searchCondition(subject = "founded_on", verb = "gte", object = 2010)
+```
+
+But which value do we use to lookup AI for categories? Here we make use of the Autocomplete API. It helps us find the specific uuid for the AI category.
+
+```{r autocomplete example}
+autocomplete("Artificial Intelligence", within = "categories")
+```
+
+
+From this, we pick the first uuid for Artificial Intelligence, namely "c4d8caf3-5fe7-359b-f9f2-2d708378e4ee". Theoretically, we could also use the permalink "artificial-intelligence" to make it simpler, but here, we are already intermediate users, so let's make it a bit complicated and finish the second search condition like so: 
+
+```{r specify second condition}
+second_search_condition <- searchCondition(subject = "categories", verb = "includes", object = "c4d8caf3-5fe7-359b-f9f2-2d708378e4ee")
+```
+
+Now that we have all search conditions specified, let's bind them into one data.frame of search conditions.
+
+```{r combine search conditions}
+search_conditions <- rbind(first_search_condition, second_search_condition) 
+print(search_conditions)
+```
+
+Great! Now let's search for organizations that fulfill these search conditions via the Search API endpoint.
+
+## Searching...
+
+For multiple entities, again we assume we know the uuid or permalinks and pass these in the appropriate lookup functions. I will demonstrate for organizations and people, but in principle, it works for any of the other paths as well.
+
+If you'd like to know the available paths, call the helper function getPaths() like so.
+
+```{r search, eval=FALSE}
+startups_ai <- searchForOrganizations(search_conditions)
+```
+
+
+
+## Conclusion
+
+Now you know how to look up single and multiple entities over the Crunchbase API with cruncher doing the heavy lifting for you. A question that may remain on your mind is how the *^(@) do I know what the uuid may be for a particular acquisition or a fancy new startup? Or how do I actually get data about some organizations that fulfill certain criteria but I don't know the name or uuid of? This discussion will be answered with the second intermediate example. Stay tuned! And happy crunching!
+
+
+

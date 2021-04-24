@@ -4,7 +4,7 @@
 \alias{lookupCard}
 \title{Function to lookup a card for a single organization over the Entity Lookup API Endpoint}
 \usage{
-lookupCard(id, path, card, parser, initial_data)
+lookupCard(id, path, card, initial_data)
 }
 \arguments{
 \item{id}{UUID or permalink of the organization you wish to look up}
