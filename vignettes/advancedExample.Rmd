@@ -32,6 +32,14 @@ Please note that all the functions in this example will fail unless you've speci
 
 ## Framing our Problem
 
+In the course of this, we will encounter all three endpoints:
+
+1. __Entity Lookup API__
+2. __Search API__
+3. __Autocomplete API__
+
+But for now let's focus on the problem at hand.
+
 What do we want? We want startups, that is organizations. Great. Founded in 2010 or later. That's our first condition. Our second condition is that these organizations founded in 2010 or later must be AI companies. In Crunchbase API terms, this refers to the category of an organization. We need to specify two search conditions for the Search API but how do we know which fields, operators and values to use?
 
 ```{r check searchConditions documentation}
