@@ -5,7 +5,7 @@
 #'@param entity_card card field of interest that will be returned. Only one please!
 #'@param entity_id UUID or permalink of the organization you wish to look up
 #'@param entity_path Type of entity e.g. organizations
-#'@return a data.frame
+#'@return a list of paginated data.frames
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
 #'
@@ -41,7 +41,7 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
   }
 
   # Check that card is within the path's card
-  if (!entity_card %in% getCardsForPath(path)) {
+  if (!entity_card %in% getCardsForPath(entity_path)) {
     stop("Card needs to one of the path's card. Call getCardsForPath('yourPath') to check the available ones.")
   }
 
@@ -54,10 +54,10 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
   entity_id <- entityIdCheck(entity_id)
 
   # Get right parser
-  parsingFun <- getParserForCard(card)
+  #parsingFun <- getParserForCard(entity_card)
 
   # Create the entity_path
-  url <- paste0("https://api.crunchbase.com/api/v4/entities/", entity_path, "/", entity_id, "?card_ids=", entity_card, "&user_key=", API_KEY)
+  url <- paste0("https://api.crunchbase.com/api/v4/entities/", entity_path, "/", entity_id, "/cards/", entity_card, "?user_key=", API_KEY)
 
   # Make http GET request
   response <- RETRY(verb = "GET", url = url) # Could use GET but someone may apply it with a list
@@ -67,22 +67,34 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
     # Get data
     data <- fromJSON(rawToChar(response$content))
 
-    # Parse first df
-    first_df <- parsingFun(data)
+    # Initialize final df
+    final_df <- list()
+    page_no <- 1
+
+
+    # Put into list the first df
+    first_df <- data$cards[[entity_card]]
+    final_df$page_1 <- first_df
 
     # Check NROW
     check <- NROW(first_df)
 
-    # Initialize final df
-    final_df <- first_df
-
     # Paginate while check is 100
     while (check == 100) {
       # Get last uuid of final_df
-      last_id <- final_df$identifier_uuid[100]
+      last_id <- data$cards[[entity_card]]$identifier$uuid[100]
+
+      # Debug
+      cat(paste("last_id", last_id, "\n"))
+
+      # Add one to page_no
+      page_no <- page_no + 1
+
+      # Print
+      cat(paste("Moving on to page", page_no, "...\n"))
 
       # Make new request
-      request_url <- paste0(url, "&after_id=", last_id)
+      request_url <- paste0("https://api.crunchbase.com/api/v4/entities/", entity_path, "/", entity_id, "/cards/", entity_card, "?after_id=", last_id, "&user_key=", API_KEY)
 
       # Get http request
       next_res <- RETRY(verb = "GET", url = request_url)
@@ -91,13 +103,13 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
       data <- fromJSON(rawToChar(next_res$content))
 
       # Get next df
-      next_df <- parsingFun(data)
+      next_df <- data$cards[[entity_card]]
+
+      # Append to original
+      final_df[[paste0("page_", page_no)]] <- next_df
 
       # Construct new check
       check <- NROW(next_df)
-
-      # Append to original
-      final_df <- rbind(final_df, next_df)
     }
 
     # Return final data.frame

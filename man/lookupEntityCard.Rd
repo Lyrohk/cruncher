@@ -14,7 +14,7 @@ lookupEntityCard(entity_card, entity_id, entity_path)
 \item{entity_path}{Type of entity e.g. organizations}
 }
 \value{
-a data.frame
+a list of paginated data.frames
 }
 \description{
 Takes the entity id to lookup a card and paginate through the entities and parse them into a data.frame
