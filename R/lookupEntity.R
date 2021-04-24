@@ -29,6 +29,9 @@ lookupEntity <- function(id, path, card = "fields", please_parse = TRUE) {
   id <- entityIdCheck(id)
 
   # Check that path is in the possible range
+  if (!path %in% getPaths()) {
+    stop("Path must be in the available ones in lookupEntity function. Call getPaths() to view those.")
+  }
 
   # Create the path
   url <- paste0("https://api.crunchbase.com/api/v4/entities/", path, "/", id, "?card_ids=", card, "&user_key=", API_KEY)
@@ -45,7 +48,6 @@ lookupEntity <- function(id, path, card = "fields", please_parse = TRUE) {
       # Extract out the property fields
       field_data <- data$cards[[card]]
 
-      # TODO COmplete and hook up to individual lookupEntity functions to reduce boilerplate code
       # Parse depending on path to return a dataframe
       if (path == "organizations") {
         return(parseOrganization(field_data))
