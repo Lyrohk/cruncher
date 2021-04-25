@@ -23,7 +23,7 @@ searchConditionCurrency <- function(subject, verb, value, currency) {
   }
 
   # Check that value is of type numeric or integer
-  if (class(value) %in% c("numeric", "integer")) {
+  if (!class(value) %in% c("numeric", "integer")) {
     stop("Value must be of class numeric or integer.")
   }
 
@@ -31,7 +31,7 @@ searchConditionCurrency <- function(subject, verb, value, currency) {
   currency <- stringr::str_to_lower(currency)
 
   # Check that verb is one of the operators
-  if (verb %in% getOperators()$operators) {
+  if (!verb %in% getOperators()$operators) {
     stop("Verb must be a valid operator. Call getOperators() to view them. Keep in mind that the operator must match the class of the subject.")
   }
 
