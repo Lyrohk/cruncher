@@ -29,6 +29,11 @@ a data.frame
 \description{
 Function to search for people that fulfill pre-specified search conditions over the Search API
 }
+\examples{
+searchForPeople(rbind(searchCondition(subject = "location_identifiers", verb = "includes", object = c("germany")),
+                       searchCondition(subject = "categories", verb = "includes", object = c("artifial_intelligence", "data_mining") )))
+
+}
 \author{
 Layla Rohkohl, \email{byehity@gmail.com}
 }

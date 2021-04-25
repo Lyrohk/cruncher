@@ -84,9 +84,6 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
       # Get last uuid of final_df
       last_id <- data$cards[[entity_card]]$identifier$uuid[100]
 
-      # Debug
-      cat(paste("last_id", last_id, "\n"))
-
       # Add one to page_no
       page_no <- page_no + 1
 
