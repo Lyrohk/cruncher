@@ -4,7 +4,7 @@
 \alias{getPaths}
 \title{Helper function to return all paths}
 \usage{
-getPaths()
+getPaths(pretty_print = TRUE)
 }
 \value{
 all valid paths

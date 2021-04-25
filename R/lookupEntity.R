@@ -29,7 +29,7 @@ lookupEntity <- function(id, path, card = "fields", please_parse = TRUE) {
   id <- entityIdCheck(id)
 
   # Check that path is in the possible range
-  if (!path %in% getPaths()) {
+  if (!path %in% getPaths(pretty_print = FALSE)) {
     stop("Path must be in the available ones in lookupEntity function. Call getPaths() to view those.")
   }
 

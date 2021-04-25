@@ -4,7 +4,12 @@
 \alias{getCardsForPath}
 \title{Helper function to return all cards for one of the paths}
 \usage{
-getCardsForPath(path)
+getCardsForPath(path, pretty_print = TRUE)
+}
+\arguments{
+\item{path}{of interest}
+
+\item{pretty_print}{TRUE by default, then it will print out an explanatory line before the list of available cards for a path}
 }
 \value{
 all valid cards for a particular path

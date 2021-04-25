@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' searchForPeople(rbind(searchCondition(subject = "location_identifiers", verb = "includes", object = c("germany")),
-#'                        searchCondition(subject = "categories", verb = "includes", object = c("artifial_intelligence", "data_mining))))
+#'                        searchCondition(subject = "categories", verb = "includes", object = c("artifial_intelligence", "data_mining)))
 #'
 #' @import httr
 #' @import jsonlite

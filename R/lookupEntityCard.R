@@ -36,12 +36,12 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
   }
 
   # Check that path is part of the available ones
-  if (!entity_path %in% getPaths()) {
+  if (!entity_path %in% getPaths(pretty_print = F)) {
     stop("Path needs to be one of the available ones. Call getPaths() to check 'em out.")
   }
 
   # Check that card is within the path's card
-  if (!entity_card %in% getCardsForPath(entity_path)) {
+  if (!entity_card %in% getCardsForPath(entity_path, pretty_print = F)) {
     stop("Card needs to one of the path's card. Call getCardsForPath('yourPath') to check the available ones.")
   }
 

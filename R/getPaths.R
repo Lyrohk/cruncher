@@ -10,7 +10,7 @@
 #' @export
 #'
 # Helper function to view all paths possible
-getPaths <- function() {
+getPaths <- function(pretty_print = TRUE) {
   # Paths as list
   paths <- c("organizations",
  "people",
@@ -30,6 +30,10 @@ getPaths <- function() {
  "addresses")
 
   # Print out
-  cat("Here are the available paths:\n")
-  return(paths)
+  if (pretty_print) {
+    cat("Here are the available paths:\n")
+    return(paths)
+  } else {
+    return(paths)
+  }
 }
