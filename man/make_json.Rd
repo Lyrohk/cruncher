@@ -9,7 +9,7 @@ make_json(
   order_by = "",
   sort_direction = "asc",
   query,
-  limit = 100,
+  limit = 100L,
   before_id = "",
   after_id = ""
 )
@@ -36,8 +36,8 @@ an list object that can be passed in as the JSON body parameter in the Search AP
 Function to construct JSON body request to pass in for the Search API of the Crunchbase API
 }
 \examples{
-make_query(fields = "founded_on,locations", 
-order_by = "founded_on", 
+make_query(fields = "founded_on,locations",
+order_by = "founded_on",
 sort_direction = "desc",
 query = q,
 limit = 200)
