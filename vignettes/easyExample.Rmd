@@ -61,7 +61,7 @@ getPaths()
 
 Now you can see what entities are available. Let's try to lookup data from Crunchbase for both Google and Facebook.
 
-```{r multiple organizations lookup, warning=FALSE,message=FALSE,error=FALSE}
+```{r multiple organizations lookup, warning=FALSE,message=FALSE,error=FALSE, eval=FALSE}
 lookupOrganizations(c("facebook", "Google", "Facebook"))
 ```
 
@@ -70,7 +70,7 @@ You may notice that facebook has accidentally been inserted twice, but the funct
 
 Similarly, when we want to look up several people, we can pass them in the proper function as a character vector or a list like so:
 
-```{r multiple people lookup, warning=FALSE,message=FALSE,error=FALSE}
+```{r multiple people lookup, warning=FALSE,message=FALSE,error=FALSE, eval=FALSE}
 lookupPeople(list("mark Zuckerberg", "Elon Musk", "Steve Jobs"))
 ```
 

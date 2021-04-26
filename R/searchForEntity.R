@@ -3,6 +3,7 @@
 #'@param path The path to the entity e.g. organizations, people, etc.
 #'@param search_conditions of what you are looking for
 #'@param please_parse TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object
+#'@param result_limit 1000L, max 2000, usually default 50
 #'@return either a data.frame (if parse = TRUE) or a list (if parse = FALSE)
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
@@ -14,7 +15,12 @@
 #' @import jsonlite
 #'
 #'
-searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, uuids_only) {
+searchForEntity <- function(path,
+                            conditions,
+                            order_by = "identifier",
+                            sort_by = "asc",
+                            result_limit = NA,
+                            uuids_only = FALSE) {
 
   # TODO API key check
 
@@ -23,7 +29,7 @@ searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, u
     stop("The argument search_conditions needs to be specified. Use rbind with the created searchCondition() function.")
   }
   if (class(conditions) != "data.frame") {
-    stop("The argument search_conditions must be of type 'data.frame'.")
+    stop("The argument search_conditions must be of type 'data.frame'. Use rbind with the searchCondition or searchConditionCurrency functions.")
   }
 
   # Quick to failure section ####
@@ -31,25 +37,19 @@ searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, u
     stop("Sort direction needs to be either 'asc' or 'desc'.")
   }
 
-
-  # Functionality section ####
-  field_ids <- c("identifier")
-  order <- data.frame(field_id = order_by, sort = sort_by)
-  query <- conditions
-  limit <- 1000L #Max; default 50; max 1000
-
-  # Construct JSON body as list
-  json_list <- list(field_ids, order, query, limit)
-  names(json_list) <- c("field_ids", "order", "query", "limit")
+  # Make JSON body
+  json <- makeJson(order_by = order_by,
+                    sort_direction = sort_by,
+                    query = conditions,
+                    limit = 1000L)
 
   # Print json
-  print(json_list)
+  print(json)
 
   # Make POST request
   response <- RETRY(verb = "POST",
                     url = paste0("https://api.crunchbase.com/api/v4/searches/", path, "?user_key=", API_KEY),
-                    body = json_list,
-                    encode = "json")
+                    body = toJSON(json, flatten = T, auto_unbox = T))
 
   # Check if we get valid data, if not return error core
   if (response$status_code == 200) {
@@ -73,20 +73,15 @@ searchForEntity <- function(path, conditions, order_by, sort_by, result_limit, u
     # Check if num_total_entities more than returned ones
     while (num_total_entities > num_returned_entities) {
       # Put last uuid as after_id parameter to the body
-      json_list$after_id <- tail(entity_uuids$uuid, 1)
-
-      names(json_list) <- c("field_ids", "order", "query", "limit", "after_id")
-
+      json$after_id <- tail(entity_uuids$uuid, 1)
 
       # Print last uuid
       print(paste("Last uuid is", json_list$after_id))
-      print(json_list)
 
       # Request the next batch of uuids
       response <- RETRY(verb = "POST",
                         url = paste0("https://api.crunchbase.com/api/v4/searches/", path, "?user_key=", API_KEY),
-                        body = json_list,
-                        encode = "json")
+                        body = toJSON(json, flatten = T, auto_unbox = T))
 
       # Get next data
       data <- fromJSON(rawToChar(response$content))

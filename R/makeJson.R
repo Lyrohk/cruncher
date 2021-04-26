@@ -19,13 +19,14 @@
 #' limit = 200)
 #'
 #' @import dplyr
+#' @import stringr
 #' @export
 #'
 # Function to construct the final list object
 # 50 default, min is 1, max is 2000
-make_json <-
-  function(fields,
-           order_by = "",
+makeJson <-
+  function(fields = c("identifier"),
+           order_by = "identifier",
            sort_direction = "asc",
            query,
            limit = 1000L,
