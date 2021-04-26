@@ -4,10 +4,19 @@
 \alias{searchForEntity}
 \title{Function to search for some entities matching certain search criteria over the Search API Endpoint}
 \usage{
-searchForEntity(path, conditions, order_by, sort_by, result_limit, uuids_only)
+searchForEntity(
+  path,
+  conditions,
+  order_by = "identifier",
+  sort_by = "asc",
+  result_limit = NA,
+  uuids_only = FALSE
+)
 }
 \arguments{
 \item{path}{The path to the entity e.g. organizations, people, etc.}
+
+\item{result_limit}{1000L, max 2000, usually default 50}
 
 \item{search_conditions}{of what you are looking for}
 
