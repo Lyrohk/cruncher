@@ -9,7 +9,7 @@ searchForEntity(
   conditions,
   order_by = "identifier",
   sort_by = "asc",
-  personal_limit = NA,
+  result_limit = NA,
   iter = 1000L,
   uuids_only = FALSE
 )
@@ -17,7 +17,7 @@ searchForEntity(
 \arguments{
 \item{path}{The path to the entity e.g. organizations, people, etc.}
 
-\item{personal_limit}{Personal set limit of result. Useful when only needing e.g. the top 50 organizations in a certain category.}
+\item{result_limit}{Personal set limit of result. Useful when only needing e.g. the top 50 organizations in a certain category.}
 
 \item{iter}{Number of results to be returned per call. Default here 1000L, max 2000L. Usually defaulting to 50.}
 
