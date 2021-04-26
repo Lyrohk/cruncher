@@ -1,6 +1,5 @@
 #' Function to construct JSON body request to pass in for the Search API of the Crunchbase API
 #'
-#'@param fields Field names which will be returned as columns
 #'@param order_by Field name by which the response should be ordered
 #'@param sort_direction Order direction, either "asc" for ascending or "desc" for descending. The default is "asc"
 #'@param query JSON of query conditions, each can be individuall constructed with the predicate function
@@ -25,16 +24,15 @@
 # Function to construct the final list object
 # 50 default, min is 1, max is 2000
 makeJson <-
-  function(fields = c("identifier"),
+  function(query,
            order_by = "identifier",
            sort_direction = "asc",
-           query,
            limit = 1000L,
            before_id = "",
            after_id = "") {
 
     # Construct basic json
-    json_list <- list(fields,
+    json_list <- list(fields = unique(c("identifier", query$field_id, order_by)),
                       data.frame(field_id = order_by, sort = sort_direction),
                       query,
                       limit)

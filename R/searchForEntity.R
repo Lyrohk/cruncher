@@ -3,7 +3,8 @@
 #'@param path The path to the entity e.g. organizations, people, etc.
 #'@param search_conditions of what you are looking for
 #'@param please_parse TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object
-#'@param result_limit 1000L, max 2000, usually default 50
+#'@param personal_limit Personal set limit of result. Useful when only needing e.g. the top 50 organizations in a certain category.
+#'@param iter Number of results to be returned per call. Default here 1000L, max 2000L. Usually defaulting to 50.
 #'@return either a data.frame (if parse = TRUE) or a list (if parse = FALSE)
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
@@ -19,10 +20,16 @@ searchForEntity <- function(path,
                             conditions,
                             order_by = "identifier",
                             sort_by = "asc",
-                            result_limit = NA,
+                            personal_limit = NA,
+                            iter = 1000L,
                             uuids_only = FALSE) {
 
   # TODO API key check
+
+  # Check that path in getPaths()
+  if (!path %in% getPaths()) {
+    stop("Path in searchforentity must be a valid one. Call getPaths() to view them.")
+  }
 
   # Check that search_conditions exists and is a data.frame with at least one row
   if (missing(conditions)) {
@@ -41,7 +48,7 @@ searchForEntity <- function(path,
   json <- makeJson(order_by = order_by,
                     sort_direction = sort_by,
                     query = conditions,
-                    limit = 1000L)
+                    limit = iter)
 
   # Print json
   print(json)
@@ -71,12 +78,12 @@ searchForEntity <- function(path,
     cat(paste("The number of returned uuids currently amounts to",  num_returned_entities, "\n"))
 
     # Check if num_total_entities more than returned ones
-    while (num_total_entities > num_returned_entities) {
+    while ((num_total_entities - num_returned_entities) > iter) {
       # Put last uuid as after_id parameter to the body
       json$after_id <- tail(entity_uuids$uuid, 1)
 
       # Print last uuid
-      print(paste("Last uuid is", json_list$after_id))
+      print(paste("Last uuid is", json$after_id))
 
       # Request the next batch of uuids
       response <- RETRY(verb = "POST",

@@ -5,23 +5,20 @@
 \title{Function to construct JSON body request to pass in for the Search API of the Crunchbase API}
 \usage{
 makeJson(
-  fields = c("identifier"),
+  query,
   order_by = "identifier",
   sort_direction = "asc",
-  query,
   limit = 1000L,
   before_id = "",
   after_id = ""
 )
 }
 \arguments{
-\item{fields}{Field names which will be returned as columns}
+\item{query}{JSON of query conditions, each can be individuall constructed with the predicate function}
 
 \item{order_by}{Field name by which the response should be ordered}
 
 \item{sort_direction}{Order direction, either "asc" for ascending or "desc" for descending. The default is "asc"}
-
-\item{query}{JSON of query conditions, each can be individuall constructed with the predicate function}
 
 \item{limit}{Number of rows to be returned, default 100, max 2000, min 1}
 
