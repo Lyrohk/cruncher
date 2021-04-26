@@ -3,7 +3,7 @@
 #'@param path The path to the entity e.g. organizations, people, etc.
 #'@param search_conditions of what you are looking for
 #'@param please_parse TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object
-#'@param personal_limit Personal set limit of result. Useful when only needing e.g. the top 50 organizations in a certain category.
+#'@param result_limit Personal set limit of result. Useful when only needing e.g. the top 50 organizations in a certain category.
 #'@param iter Number of results to be returned per call. Default here 1000L, max 2000L. Usually defaulting to 50.
 #'@return either a data.frame (if parse = TRUE) or a list (if parse = FALSE)
 #'
@@ -20,7 +20,7 @@ searchForEntity <- function(path,
                             conditions,
                             order_by = "identifier",
                             sort_by = "asc",
-                            personal_limit = NA,
+                            result_limit = NA,
                             iter = 1000L,
                             uuids_only = FALSE) {
 
