@@ -56,7 +56,7 @@ getOperators()
 
 Alright. This helper function returns us all available operators. For the first search condition, we will need gte (greater than or equal) and for the second we will use "includes". The values for year are clear: it is simply the number 2010. Therefore we can already specify the first search condition.
 
-```{r specify first search condition, eval=FALSE}
+```{r specify first search condition}
 first_search_condition <- searchCondition(subject = "founded_on", verb = "gte", object = 2010)
 ```
 

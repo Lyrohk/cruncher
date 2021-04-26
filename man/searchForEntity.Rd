@@ -9,14 +9,17 @@ searchForEntity(
   conditions,
   order_by = "identifier",
   sort_by = "asc",
-  result_limit = NA,
+  personal_limit = NA,
+  iter = 1000L,
   uuids_only = FALSE
 )
 }
 \arguments{
 \item{path}{The path to the entity e.g. organizations, people, etc.}
 
-\item{result_limit}{1000L, max 2000, usually default 50}
+\item{personal_limit}{Personal set limit of result. Useful when only needing e.g. the top 50 organizations in a certain category.}
+
+\item{iter}{Number of results to be returned per call. Default here 1000L, max 2000L. Usually defaulting to 50.}
 
 \item{search_conditions}{of what you are looking for}
 
