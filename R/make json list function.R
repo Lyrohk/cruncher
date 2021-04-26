@@ -28,7 +28,7 @@ make_json <-
            order_by = "",
            sort_direction = "asc",
            query,
-           limit = 100L,
+           limit = 1000L,
            before_id = "",
            after_id = "") {
 

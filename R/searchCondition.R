@@ -33,25 +33,16 @@ searchCondition <- function(subject, verb, object) {
                 stringr::str_to_lower(subject) %>% str_replace_all(" ", "_")
 
         # Depending on length of object, make a simple row or more complex
-        if (length(object) == 1) {
-                search_row <- data.frame(
-                        "type" = "predicate",
-                        "field_id" = subject,
-                        "operator_id" = verb,
-                        "values" = object
-                )
-        } else {
-                search_row <- data.frame(
-                        "type" = "predicate",
-                        "field_id" = subject,
-                        "operator_id" = verb,
-                        "values" = data.frame(matrix(
-                                nrow = 1,
-                                ncol = 1,
-                                data = list(object)
-                        ))
-                )
-        }
+        search_row <- data.frame(
+                "type" = "predicate",
+                "field_id" = subject,
+                "operator_id" = verb,
+                "values" = data.frame(matrix(
+                        nrow = 1,
+                        ncol = 1,
+                        data = list(as.list(object))
+                ))
+        )
 
         # Rename
         colnames(search_row) <-
