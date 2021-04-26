@@ -15,13 +15,47 @@
 #' @export
 #'
 searchCondition <- function(subject, verb, object) {
- search_row <- data.frame("type" = "predicate",
-            "field_id" = subject,
-            "operator_id" = verb,
-            "values" = data.frame(matrix(nrow = 1, ncol = 1, data = list(object))))
- # Rename
- colnames(search_row) <- c("type", "field_id", "operator_id", "values")
- # Return search_row
- return(search_row)
-}
+        # Check that verb is one of the operators
+        if (!verb %in% getOperators()$operators) {
+                stop(
+                        "Verb must be a valid operator. Call getOperators() to view them. Keep in mind that the operator must match the class of the subject."
+                )
+        }
+        # Check that object exists
+        if (missing(object)) {
+                stop(
+                        "An object is missing. Check documentations or use autocomplete to find the correct value(s) for the object part."
+                )
+        }
 
+        # String check to lower and replace spaces with _ e.g. "Founded on" to "founded_on"
+        subject <-
+                stringr::str_to_lower(subject) %>% str_replace_all(" ", "_")
+
+        # Depending on length of object, make a simple row or more complex
+        if (length(object) == 1) {
+                search_row <- data.frame(
+                        "type" = "predicate",
+                        "field_id" = subject,
+                        "operator_id" = verb,
+                        "values" = object
+                )
+        } else {
+                search_row <- data.frame(
+                        "type" = "predicate",
+                        "field_id" = subject,
+                        "operator_id" = verb,
+                        "values" = data.frame(matrix(
+                                nrow = 1,
+                                ncol = 1,
+                                data = list(object)
+                        ))
+                )
+        }
+
+        # Rename
+        colnames(search_row) <-
+                c("type", "field_id", "operator_id", "values")
+        # Return search_row
+        return(search_row)
+}
