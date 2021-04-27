@@ -2,7 +2,7 @@
 % Please edit documentation in R/printError.R
 \name{printError}
 \alias{printError}
-\title{Helper function to print out the error code along with a short explanation of what it means}
+\title{Helper function to print out the error code along with an explanation of what it means}
 \usage{
 printError(response_code)
 }
@@ -10,14 +10,13 @@ printError(response_code)
 \item{status_code}{the response code returned from the http request}
 }
 \value{
-a message that is printed to the console
+a custom message that is printed to the console
 }
 \description{
-Helper function to print out the error code along with a short explanation of what it means
+Helper function to print out the error code along with an explanation of what it means
 }
 \examples{
 printError(404)
-
 
 }
 \author{

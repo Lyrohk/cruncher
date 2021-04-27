@@ -27,7 +27,7 @@ searchForEntity <- function(path,
   # TODO API key check
 
   # Check that path in getPaths()
-  if (!path %in% getPaths()) {
+  if (!path %in% getPaths(pretty_print = FALSE)) {
     stop("Path in searchforentity must be a valid one. Call getPaths() to view them.")
   }
 
@@ -51,6 +51,7 @@ searchForEntity <- function(path,
                     limit = iter)
 
   # Print json
+  cat("The generated JSON looks as follows:\n")
   print(json)
 
   # Make POST request

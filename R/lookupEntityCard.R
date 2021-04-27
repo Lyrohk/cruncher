@@ -46,7 +46,7 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
   }
 
   # If card is 'fields' use lookupEntity function instead
-  if (card == "fields") {
+  if (entity_card == "fields") {
     return(lookupEntity(id = entity_id, path = entity_path))
   }
 
