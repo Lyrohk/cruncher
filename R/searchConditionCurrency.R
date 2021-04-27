@@ -9,7 +9,7 @@
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
 #'
 #' @examples
-#' searchConditionCurrency(subject = "money_raised", verb = "gte", value = 10000000L, currency = "usd")
+#' searchConditionCurrency(subject = "money_raised", verb = "gte", value = 10000000L, currency = "USD")
 #'
 #'@import stringr
 #'@import dplyr
@@ -19,7 +19,7 @@ searchConditionCurrency <- function(subject, verb, value, currency) {
 
   # Check class of currency
   if (class(currency) != "character") {
-    stop("Currency must be of class 'character' e.g. 'usd'. Please try again.")
+    stop("Currency must be of class 'character' e.g. 'USD'. Please try again.")
   }
 
   # Check that value is of type numeric or integer
@@ -28,9 +28,9 @@ searchConditionCurrency <- function(subject, verb, value, currency) {
   }
 
   # String check to lower
-  currency <- stringr::str_to_lower(currency)
+  currency <- stringr::str_to_upper(currency)
 
-  # Check that verb is one of the operators
+    # Check that verb is one of the operators
   if (!verb %in% getOperators()$operators) {
     stop("Verb must be a valid operator. Call getOperators() to view them. Keep in mind that the operator must match the class of the subject.")
   }
