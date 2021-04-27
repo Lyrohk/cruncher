@@ -60,7 +60,7 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
   url <- paste0("https://api.crunchbase.com/api/v4/entities/", entity_path, "/", entity_id, "/cards/", entity_card, "?user_key=", API_KEY)
 
   # Make http GET request
-  response <- RETRY(verb = "GET", url = url) # Could use GET but someone may apply it with a list
+  response <- RETRY(verb = "GET", url = url, quiet = T) # Could use GET but someone may apply it with a list
 
   # Check if we get valentity_id data, if not return error core
   if (response$status_code == 200) {
