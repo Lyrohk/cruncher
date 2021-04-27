@@ -13,7 +13,7 @@
 #' @export
 #'
 # Lookup multiple entities
-lookupEntities <- function(entities, path, please_parse = TRUE) {
+lookupEntities <- function(entities, path, please_parse = TRUE, print_error = TRUE) {
 
   # Check entities for class type
   if (!class(entities) %in% c("list", "character")) {
@@ -88,11 +88,11 @@ lookupEntities <- function(entities, path, please_parse = TRUE) {
   # Return requested output
   if (please_parse) {
     # Return a dataframe with each row having all the information about a certain entities
-    df <- do.call(rbind.data.frame, lapply(X = entities, FUN = my_fun))
+    df <- do.call(rbind.data.frame, lapply(X = entities, FUN = my_fun, print_error = print_error))
     # Filter out na columns
     return(df[colSums(!is.na(df)) > 0])
   } else {
     # Return the data converted from json as lists
-    return(do.call(list, lapply(X = entities, FUN = my_fun, please_parse = FALSE)))
+    return(do.call(list, lapply(X = entities, FUN = my_fun, please_parse = FALSE, print_error = print_error)))
   }
 }

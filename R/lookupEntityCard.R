@@ -19,9 +19,12 @@
 #'
 lookupEntityCard <- function(entity_card, entity_id, entity_path) {
 
+  # Check API_KEY
+  API_KEY <- Sys.getenv("API_KEY")
+
   # Check that API_KEY exists
-  if (!exists("API_KEY")) {
-    stop("Please set a valentity_id user key to API_KEY as an environmental variable or for use setAPIKey() to do it for you.")
+  if (API_KEY == "") {
+    stop("Please set a valid user key with academic research access to the Crunchbase API with setAPIKey().")
   }
 
   # Check that all arguments exists

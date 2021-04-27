@@ -14,10 +14,14 @@
 #' @import jsonlite
 #'
 #'
-lookupEntity <- function(id, path, card = "fields", please_parse = TRUE) {
+lookupEntity <- function(id, path, card = "fields", please_parse = TRUE, print_error = TRUE) {
+
+  # Check API_KEY
+  API_KEY <- Sys.getenv("API_KEY")
+
   # Check that API_KEY exists
-  if (!exists("API_KEY")) {
-    stop("Please set a valid user key to API_KEY as an environmental variable or for use setAPIKey() to do it for you.")
+  if (API_KEY == "") {
+    stop("Please set a valid user key with academic research access to the Crunchbase API with setAPIKey().")
   }
 
   # Check that id has been specified
@@ -37,7 +41,10 @@ lookupEntity <- function(id, path, card = "fields", please_parse = TRUE) {
   url <- paste0("https://api.crunchbase.com/api/v4/entities/", path, "/", id, "?card_ids=", card, "&user_key=", API_KEY)
 
   # Make http GET request
-  response <- RETRY(verb = "GET", url = url) # Could use GET but someone may apply it with a list
+  response <- RETRY(verb = "GET", url = url,
+                    quiet = TRUE, #to not print out message until it will retry.
+                    terminate_on = c(401, 404) #404 invalid id or api key
+                    )
 
   # Check if we get valid data, if not return error core
   if (response$status_code == 200) {
@@ -92,7 +99,9 @@ lookupEntity <- function(id, path, card = "fields", please_parse = TRUE) {
       return(data)
     }
   } else {
-    # Print error code
-    printError(response$status_code)
+    # Print error code if wished for
+    if (print_error) {
+      printError(response$status_code)
+    }
   }
 }
