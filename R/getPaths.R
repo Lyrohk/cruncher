@@ -27,7 +27,8 @@ getPaths <- function(pretty_print = TRUE) {
  "category_groups",
  "locations",
 "jobs",
- "addresses")
+ "addresses",
+"degrees")
 
   # Print out
   if (pretty_print) {
