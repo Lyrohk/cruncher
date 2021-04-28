@@ -14,7 +14,7 @@
 #'
 #' @export
 #'
-searchForEvents <- function(search_conditions, order_by = "identifier", sort_by = "asc", result_limit = NA, uuids_only = F) {
+searchForEvents <- function(search_conditions, order_by = "identifier", sort_by = "asc", result_limit = NA, uuids_only = F, precise = T) {
   # Search for the entity on the path with the provided search conditions
-  return(searchForEntity(path = "events", conditions = search_conditions, order_by = order_by, sort_by = sort_by, result_limit = result_limit, uuids_only = uuids_only))
+  return(searchForEntity(path = "events", conditions = search_conditions, order_by = order_by, sort_by = sort_by, result_limit = result_limit, uuids_only = uuids_only, precise = precise))
 }

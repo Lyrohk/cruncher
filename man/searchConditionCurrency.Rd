@@ -22,7 +22,7 @@ a data.frame row that can be easily 'rbind'ed to other search conditions to be p
 Function to construct currency type search conditions to be 'rbind'ed into one dataframe to be passed as conditions argument to any search function
 }
 \examples{
-searchConditionCurrency(subject = "money_raised", verb = "gte", value = 10000000L, currency = "usd")
+searchConditionCurrency(subject = "money_raised", verb = "gte", value = 10000000L, currency = "USD")
 
 }
 \author{

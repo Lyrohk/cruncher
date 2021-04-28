@@ -9,7 +9,8 @@ searchForPressReferences(
   order_by = "identifier",
   sort_by = "asc",
   result_limit = NA,
-  uuids_only = F
+  uuids_only = F,
+  precise = T
 )
 }
 \arguments{

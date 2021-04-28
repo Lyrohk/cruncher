@@ -4,13 +4,13 @@
 \alias{setAPIKey}
 \title{Function to set API_KEY}
 \usage{
-setAPIKey()
+setAPIKey(input = "")
 }
 \description{
 Function to set API_KEY
 }
 \examples{
-setAPIKey("yourResearchAccessCrunchbaseAPIUserKey")
+setAPIKey()
 
 }
 \author{

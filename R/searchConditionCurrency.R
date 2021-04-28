@@ -28,7 +28,7 @@ searchConditionCurrency <- function(subject, verb, value, currency) {
   }
 
   # String check to lower
-  currency <- stringr::str_to_upper(currency)
+  currency <- stringr::str_to_lower(currency)
 
     # Check that verb is one of the operators
   if (!verb %in% getOperators()$operators) {
@@ -41,6 +41,23 @@ searchConditionCurrency <- function(subject, verb, value, currency) {
   df$value <- as.integer(df$value)
   df$currency <- as.character(df$currency)
 
+  # From searchCondition ####
+  # Put df as values
+  search_row <- data.frame(
+    "type" = "predicate",
+    "field_id" = subject,
+    "operator_id" = verb,
+    "values" = data.frame(matrix(
+      nrow = 1,
+      ncol = 1,
+      data = df
+    ))
+  )
+
+  # Rename
+  colnames(search_row) <-
+    c("type", "field_id", "operator_id", "values")
+
   # Return condition row data.frame
-  return(searchCondition(subject = subject, verb = verb, object = df))
+  return(search_row)
 }

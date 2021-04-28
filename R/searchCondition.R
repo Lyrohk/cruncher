@@ -32,6 +32,9 @@ searchCondition <- function(subject, verb, object) {
         subject <-
                 stringr::str_to_lower(subject) %>% str_replace_all(" ", "_")
 
+        # String check for values
+        object <- stringr::str_to_lower(object) %>% str_trim() %>% str_replace_all(" ", "-")
+
         # Depending on length of object, make a simple row or more complex
         search_row <- data.frame(
                 "type" = "predicate",
