@@ -3,6 +3,7 @@
 #'@param id UUID or permalink of the person you wish to look up
 #'@param path The path to the entity e.g. organizations, people, etc.
 #'@param please_parse TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object
+#'@param print_error Logical. Default to TRUE and thus if the request fails, an error will be printed out.
 #'@return either a data.frame (if parse = TRUE) or a list (if parse = FALSE)
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
