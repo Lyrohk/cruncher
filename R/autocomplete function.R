@@ -23,13 +23,13 @@ autocomplete <-
   function(search_for,
            within = "",
            limit = 10) {
-    # Check API Key
-    # API_KEY = Sys.getenv("API_KEY")
-    # if (API_KEY == "") {
-    #   stop(
-    #     "Please set your Crunchbase API Key with the setAPIKey(). Please note that the basic access is not sufficient."
-    #   )
-    # }
+    #Check API Key
+    API_KEY = Sys.getenv("API_KEY")
+    if (API_KEY == "") {
+      stop(
+        "Please set your Crunchbase API Key with the setAPIKey(). Please note that the basic access is not sufficient."
+      )
+    }
     # Check bounds of limit
     if (limit > 25 | limit < 1) {
       stop("Limit must be between 1 and 25. Please try again within this range.")
