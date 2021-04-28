@@ -12,5 +12,13 @@
 #'@export
 #'
 lookupEventCard <- function(event_card, event_id) {
-  return(lookupEntityCard(entity_card = event_card, entity_id = event_id, entity_path = "events"))
+  if (length(event_id) == 0) {
+    stop("Please provide a valid event_id.")
+  } else if (length(event_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = event_card, entity_id = event_id, entity_path = "events"))
+  } else {
+    # There are multiple ids
+    return(lapply(event_id, lookupEntityCard, entity_card = event_card, entity_path = "events"))
+  }
 }

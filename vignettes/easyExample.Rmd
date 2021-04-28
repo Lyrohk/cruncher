@@ -20,13 +20,7 @@ In the intermediate example, we relax this assumption, but for now, let's take t
 Before you do anything else, you will need to install and load the library cruncher into your workspace. You can use devtools to get cruncher. After you have installed it, simple load it by calling the following command.
 
 ```{r setup, warning=FALSE,message=FALSE,error=FALSE}
-## Install devtools if you haven't done so already
-install.packages("devtools")
-
-## After installation, use it to install cruncher
-devtools::install_github("lyrohk/cruncher")
-
-## Load cruncher
+# Load cruncher
 library(cruncher)
 
 # Set your api key with research access via

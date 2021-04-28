@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupOwnershipCard <- function(ownership_card, ownership_id) {
-  return(lookupEntityCard(entity_card = ownership_card, entity_id = ownership_id, entity_path = "ownerships"))
+  if (length(ownership_id) == 0) {
+    stop("Please provide a valid ownership_id.")
+  } else if (length(ownership_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = ownership_card, entity_id = ownership_id, entity_path = "ownerships"))
+  } else {
+    # There are multiple ids
+    return(lapply(ownership_id, lookupEntityCard, entity_card = ownership_card, entity_path = "ownerships"))
+  }
 }

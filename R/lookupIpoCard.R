@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupIpoCard <- function(ipo_card, ipo_id) {
-  return(lookupEntityCard(entity_card = ipo_card, entity_id = ipo_id, entity_path = "ipos"))
+  if (length(ipo_id) == 0) {
+    stop("Please provide a valid ipo_id.")
+  } else if (length(ipo_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = ipo_card, entity_id = ipo_id, entity_path = "ipos"))
+  } else {
+    # There are multiple ids
+    return(lapply(ipo_id, lookupEntityCard, entity_card = ipo_card, entity_path = "ipos"))
+  }
 }

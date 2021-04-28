@@ -18,14 +18,8 @@ Second example! Let's lookup something related to an entity. Concrete example: w
 
 Before you do anything else, you will need to install and load the library cruncher into your workspace. You can use devtools to get cruncher. After you have installed it, simple load it by calling the following command.
 
-```{r setup, eval = FALSE, warning=FALSE,message=FALSE,error=FALSE}
-## Install devtools if you haven't done so already
-install.packages("devtools")
-
-## After installation, use it to install cruncher
-devtools::install_github("lyrohk/cruncher")
-
-## Load cruncher
+```{r setup, warning=FALSE,message=FALSE,error=FALSE}
+# Load cruncher
 library(cruncher)
 
 # Set your api key with research access via
@@ -47,7 +41,7 @@ investors <- lookupOrganizationCard(organization_card = "investors", organizatio
 When you run the above command, you will notice that the returned object is a list that you can view and inspect further. The data we are interested in is in page_1. More pages would be added if the limit of 100 entries per page for the first page had been exceeded.
 
 
-```{r pagination, eval = FALSE, warning=FALSE,message=FALSE,error=FALSE}
+```{r get investor info, eval = FALSE, warning=FALSE,message=FALSE,error=FALSE}
 # Lookup card (will paginate if necessary)
 investors_info <- investors$page_1
 

@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupFundingRoundCard <- function(funding_round_card, funding_round_id) {
-  return(lookupEntityCard(entity_card = funding_round_card, entity_id = funding_round_id, entity_path = "funding_rounds"))
+  if (length(funding_round_id) == 0) {
+    stop("Please provide a valid funding_round_id.")
+  } else if (length(funding_round_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = funding_round_card, entity_id = funding_round_id, entity_path = "funding_rounds"))
+  } else {
+    # There are multiple ids
+    return(lapply(funding_round_id, lookupEntityCard, entity_card = funding_round_card, entity_path = "funding_rounds"))
+  }
 }

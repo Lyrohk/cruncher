@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupInvestmentCard <- function(investment_card, investment_id) {
-  return(lookupEntityCard(entity_card = investment_card, entity_id = investment_id, entity_path = "investments"))
+  if (length(investment_id) == 0) {
+    stop("Please provide a valid investment_id.")
+  } else if (length(investment_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = investment_card, entity_id = investment_id, entity_path = "investments"))
+  } else {
+    # There are multiple ids
+    return(lapply(investment_id, lookupEntityCard, entity_card = investment_card, entity_path = "investments"))
+  }
 }

@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupPressReferenceCard <- function(press_reference_card, press_reference_id) {
-  return(lookupEntityCard(entity_card = press_reference_card, entity_id = press_reference_id, entity_path = "press_references"))
+  if (length(press_reference_id) == 0) {
+    stop("Please provide a valid press_reference_id.")
+  } else if (length(press_reference_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = press_reference_card, entity_id = press_reference_id, entity_path = "press_references"))
+  } else {
+    # There are multiple ids
+    return(lapply(press_reference_id, lookupEntityCard, entity_card = press_reference_card, entity_path = "press_references"))
+  }
 }

@@ -23,13 +23,7 @@ The Autocomplete API: as a helping API to lookup specific uuids for e.g. certain
 Before you do anything else, you will need to install and load the library cruncher into your workspace. You can use devtools to get cruncher. After you have installed it, simple load it by calling the following command.
 
 ```{r setup, warning=FALSE,message=FALSE,error=FALSE}
-## Install devtools if you haven't done so already
-install.packages("devtools")
-
-## After installation, use it to install cruncher
-devtools::install_github("lyrohk/cruncher")
-
-## Load cruncher
+# Load cruncher
 library(cruncher)
 
 # Set your api key with research access via
@@ -70,7 +64,7 @@ first_search_condition <- searchCondition(subject = "founded_on", verb = "gte", 
 
 But which value do we use to lookup AI for categories? Here we make use of the Autocomplete API. It helps us find the specific uuid for the AI category.
 
-```{r autocomplete example}
+```{r autocomplete example, eval=FALSE}
 autocomplete("Artificial Intelligence", within = "categories")
 ```
 

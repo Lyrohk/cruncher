@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupAcquisitionCard <- function(acquisition_card, acquisition_id) {
-  return(lookupEntityCard(entity_card = acquisition_card, entity_id = acquisition_id, entity_path = "acquisitions"))
+  if (length(acquisition_id) == 0) {
+    stop("Please provide a valid acquisition_id.")
+  } else if (length(acquisition_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = acquisition_card, entity_id = acquisition_id, entity_path = "acquisitions"))
+  } else {
+    # There are multiple ids
+    return(lapply(acquisition_id, lookupEntityCard, entity_card = acquisition_card, entity_path = "acquisitions"))
+  }
 }

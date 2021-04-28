@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupOrganizationCard <- function(organization_card, organization_id) {
-  return(lookupEntityCard(entity_card = organization_card, entity_id = organization_id, entity_path = "organizations"))
+  if (length(organization_id) == 0) {
+    stop("Please provide a valid organization_id.")
+  } else if (length(organization_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = organization_card, entity_id = organization_id, entity_path = "organizations"))
+  } else {
+    # There are multiple ids
+    return(lapply(organization_id, lookupEntityCard, entity_card = organization_card, entity_path = "organizations"))
+  }
 }

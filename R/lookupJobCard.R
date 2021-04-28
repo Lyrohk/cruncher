@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupJobCard <- function(job_card, job_id) {
-  return(lookupEntityCard(entity_card = job_card, entity_id = job_id, entity_path = "jobs"))
+  if (length(job_id) == 0) {
+    stop("Please provide a valid job_id.")
+  } else if (length(job_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = job_card, entity_id = job_id, entity_path = "jobs"))
+  } else {
+    # There are multiple ids
+    return(lapply(job_id, lookupEntityCard, entity_card = job_card, entity_path = "jobs"))
+  }
 }

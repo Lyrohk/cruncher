@@ -14,5 +14,13 @@
 #'@export
 #'
 lookupAddressCard <- function(address_card, address_id) {
-  return(lookupEntityCard(entity_card = address_card, entity_id = address_id, entity_path = "addresses"))
+  if (length(address_id) == 0) {
+    stop("Please provide a valid address_id.")
+  } else if (length(address_id) == 1) {
+    # Lookup the cards for a single id
+    return(lookupEntityCard(entity_card = address_card, entity_id = address_id, entity_path = "addresses"))
+  } else {
+    # There are multiple ids
+    return(lapply(address_id, lookupEntityCard, entity_card = address_card, entity_path = "addresses"))
+  }
 }
