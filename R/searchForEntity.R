@@ -99,9 +99,6 @@ searchForEntity <- function(path,
           # Put last uuid as after_id parameter to the body
           json$after_id <- tail(entity_uuids$uuid, 1)
 
-          # Print last uuid
-          print(paste("Last uuid is", json$after_id))
-
           # Request the next batch of uuids
           response <- RETRY(verb = "POST",
                             url = paste0("https://api.crunchbase.com/api/v4/searches/", path, "?user_key=", API_KEY),
@@ -112,7 +109,6 @@ searchForEntity <- function(path,
 
           # Update total count of entities
           num_total_entities <- data$count
-          cat(paste("The Search Result has still (?)", num_total_entities, "results.\n" ))
 
           # Get next uuids
           next_uuids <- data.frame("uuid" = data[["entities"]][["uuid"]])
