@@ -4,7 +4,13 @@
 \alias{lookupEntity}
 \title{Function to lookup a single entity over the Entity Lookup API Endpoint}
 \usage{
-lookupEntity(id, path, card = "fields", please_parse = TRUE)
+lookupEntity(
+  id,
+  path,
+  card = "fields",
+  please_parse = TRUE,
+  print_error = TRUE
+)
 }
 \arguments{
 \item{id}{UUID or permalink of the person you wish to look up}
@@ -12,6 +18,8 @@ lookupEntity(id, path, card = "fields", please_parse = TRUE)
 \item{path}{The path to the entity e.g. organizations, people, etc.}
 
 \item{please_parse}{TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
+
+\item{print_error}{Logical. Default to TRUE and thus if the request fails, an error will be printed out.}
 }
 \value{
 either a data.frame (if parse = TRUE) or a list (if parse = FALSE)

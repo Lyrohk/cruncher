@@ -4,12 +4,14 @@
 \alias{lookupOrganizations}
 \title{Function to lookup a single organization over the Entity Lookup API Endpoint}
 \usage{
-lookupOrganizations(organizations, please_parse = TRUE)
+lookupOrganizations(organizations, please_parse = TRUE, print_error = TRUE)
 }
 \arguments{
 \item{organizations}{UUID or permalink of the organizations you wish to look up}
 
-\item{please_parse}{TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
+\item{please_parse}{Logical. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
+
+\item{print_error}{Logical. Default to TRUE and thus if the request fails, an error message will be printed out.}
 }
 \value{
 either a data.frame (if please_parse = TRUE) or a list of lists (if please_parse = FALSE)

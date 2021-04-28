@@ -4,14 +4,16 @@
 \alias{lookupEntities}
 \title{Function to lookup multiple entities over the Entity Lookup API Endpoint}
 \usage{
-lookupEntities(entities, path, please_parse = TRUE)
+lookupEntities(entities, path, please_parse = TRUE, print_error = TRUE)
 }
 \arguments{
 \item{entities}{UUID or permalink of the entities you wish to look up}
 
 \item{path}{of the entity e.g. organizations, people, etc.}
 
-\item{please_parse}{TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
+\item{please_parse}{Logical. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
+
+\item{print_error}{Logical. Default to TRUE and thus if the request fails, an error message will be printed out.}
 }
 \value{
 either a data.frame (if please_parse = TRUE) or a list of lists (if please_parse = FALSE)

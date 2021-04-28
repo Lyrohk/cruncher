@@ -4,12 +4,14 @@
 \alias{lookupPeople}
 \title{Function to lookup a multiple people over the Entity Lookup API Endpoint}
 \usage{
-lookupPeople(persons, please_parse = TRUE)
+lookupPeople(persons, please_parse = TRUE, print_error = TRUE)
 }
 \arguments{
 \item{persons}{UUID or permalink of the people you wish to look up}
 
-\item{please_parse}{TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
+\item{please_parse}{Logical. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
+
+\item{print_error}{Logical. Default to TRUE and thus if the request fails, an error message will be printed out.}
 }
 \value{
 either a data.frame (if please_parse = TRUE) or a list of lists (if please_parse = FALSE)

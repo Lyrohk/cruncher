@@ -7,9 +7,11 @@
 lookupCategoryGroups(category_groups, please_parse = TRUE)
 }
 \arguments{
-\item{please_parse}{TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
+\item{please_parse}{Logical. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object}
 
 \item{persons}{UUID or permalink of the category groups you wish to look up}
+
+\item{print_error}{Logical. Default to TRUE and thus if the request fails, an error message will be printed out.}
 }
 \value{
 either a data.frame (if please_parse = TRUE) or a list of lists (if please_parse = FALSE)
