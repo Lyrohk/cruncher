@@ -18,7 +18,10 @@ lookupEventCard <- function(event_card, event_id) {
     # Lookup the cards for a single id
     return(lookupEntityCard(entity_card = event_card, entity_id = event_id, entity_path = "events"))
   } else {
+    # Add duplicate and time check
+    duplicateTimeCheck(event_id)
+
     # There are multiple ids
-    return(lapply(event_id, lookupEntityCard, entity_card = event_card, entity_path = "events"))
+    return(silenceFun(lapply(event_id, lookupEntityCard, entity_card = event_card, entity_path = "events")))
   }
 }

@@ -3,7 +3,7 @@
 #' Takes the entity id to lookup a card and paginate through the entities and parse them into a data.frame
 #'
 #'@param acquisition_card card field of interest that will be returned. Only one please!
-#'@param acquisition_id UUID or permalink of the acquisition you wish to look up
+#'@param acquisition_id UUID or permalink of the acquisition you wish to look up. You can provide more than one.
 #'@return a data.frame
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
@@ -20,7 +20,10 @@ lookupAcquisitionCard <- function(acquisition_card, acquisition_id) {
     # Lookup the cards for a single id
     return(lookupEntityCard(entity_card = acquisition_card, entity_id = acquisition_id, entity_path = "acquisitions"))
   } else {
+    # Add duplicate and time check
+    duplicateTimeCheck(acquisition_id)
+
     # There are multiple ids
-    return(lapply(acquisition_id, lookupEntityCard, entity_card = acquisition_card, entity_path = "acquisitions"))
+    return(silenceFun(lapply(acquisition_id, lookupEntityCard, entity_card = acquisition_card, entity_path = "acquisitions")))
   }
 }

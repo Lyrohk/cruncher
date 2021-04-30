@@ -20,7 +20,10 @@ lookupIpoCard <- function(ipo_card, ipo_id) {
     # Lookup the cards for a single id
     return(lookupEntityCard(entity_card = ipo_card, entity_id = ipo_id, entity_path = "ipos"))
   } else {
+    # Add duplicate and time check
+    duplicateTimeCheck(ipo_id)
+
     # There are multiple ids
-    return(lapply(ipo_id, lookupEntityCard, entity_card = ipo_card, entity_path = "ipos"))
+    return(silenceFun(lapply(ipo_id, lookupEntityCard, entity_card = ipo_card, entity_path = "ipos")))
   }
 }

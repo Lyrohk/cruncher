@@ -20,7 +20,10 @@ lookupFundingRoundCard <- function(funding_round_card, funding_round_id) {
     # Lookup the cards for a single id
     return(lookupEntityCard(entity_card = funding_round_card, entity_id = funding_round_id, entity_path = "funding_rounds"))
   } else {
+    # Add duplicate and time check
+    duplicateTimeCheck(funding_round_id)
+
     # There are multiple ids
-    return(lapply(funding_round_id, lookupEntityCard, entity_card = funding_round_card, entity_path = "funding_rounds"))
+    return(silenceFun(lapply(funding_round_id, lookupEntityCard, entity_card = funding_round_card, entity_path = "funding_rounds")))
   }
 }

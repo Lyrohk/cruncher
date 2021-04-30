@@ -20,7 +20,10 @@ lookupInvestmentCard <- function(investment_card, investment_id) {
     # Lookup the cards for a single id
     return(lookupEntityCard(entity_card = investment_card, entity_id = investment_id, entity_path = "investments"))
   } else {
+    # Add duplicate and time check
+    duplicateTimeCheck(investment_id)
+
     # There are multiple ids
-    return(lapply(investment_id, lookupEntityCard, entity_card = investment_card, entity_path = "investments"))
+    return(silenceFun(lapply(investment_id, lookupEntityCard, entity_card = investment_card, entity_path = "investments")))
   }
 }

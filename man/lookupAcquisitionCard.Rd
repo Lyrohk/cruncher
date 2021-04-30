@@ -9,7 +9,7 @@ lookupAcquisitionCard(acquisition_card, acquisition_id)
 \arguments{
 \item{acquisition_card}{card field of interest that will be returned. Only one please!}
 
-\item{acquisition_id}{UUID or permalink of the acquisition you wish to look up}
+\item{acquisition_id}{UUID or permalink of the acquisition you wish to look up. You can provide more than one.}
 }
 \value{
 a data.frame

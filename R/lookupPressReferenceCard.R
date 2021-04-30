@@ -20,7 +20,10 @@ lookupPressReferenceCard <- function(press_reference_card, press_reference_id) {
     # Lookup the cards for a single id
     return(lookupEntityCard(entity_card = press_reference_card, entity_id = press_reference_id, entity_path = "press_references"))
   } else {
+    # Add duplicate and time check
+    duplicateTimeCheck(press_reference_id)
+
     # There are multiple ids
-    return(lapply(press_reference_id, lookupEntityCard, entity_card = press_reference_card, entity_path = "press_references"))
+    return(silenceFun(lapply(press_reference_id, lookupEntityCard, entity_card = press_reference_card, entity_path = "press_references")))
   }
 }

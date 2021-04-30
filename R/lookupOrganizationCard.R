@@ -20,7 +20,10 @@ lookupOrganizationCard <- function(organization_card, organization_id) {
     # Lookup the cards for a single id
     return(lookupEntityCard(entity_card = organization_card, entity_id = organization_id, entity_path = "organizations"))
   } else {
+    # Add duplicate and time check
+    duplicateTimeCheck(organization_id)
+
     # There are multiple ids
-    return(lapply(organization_id, lookupEntityCard, entity_card = organization_card, entity_path = "organizations"))
+    return(silenceFun(lapply(organization_id, lookupEntityCard, entity_card = organization_card, entity_path = "organizations")))
   }
 }

@@ -20,7 +20,10 @@ lookupPersonCard <- function(person_card, person_id) {
     # Lookup the cards for a single id
     return(lookupEntityCard(entity_card = person_card, entity_id = person_id, entity_path = "people"))
   } else {
+    # Add duplicate and time check
+    duplicateTimeCheck(person_id)
+
     # There are multiple ids
-    return(lapply(person_id, lookupEntityCard, entity_card = person_card, entity_path = "people"))
+    return(silenceFun(lapply(person_id, lookupEntityCard, entity_card = person_card, entity_path = "people")))
   }
 }
