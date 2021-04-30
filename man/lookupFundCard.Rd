@@ -4,12 +4,14 @@
 \alias{lookupFundCard}
 \title{Function to lookup and paginate through a single card for a single fund over the Entity Lookup API Endpoint}
 \usage{
-lookupFundCard(fund_card, fund_id)
+lookupFundCard(fund_card, fund_id, please_parse = TRUE)
 }
 \arguments{
 \item{fund_card}{card field of interest that will be returned. Only one please!}
 
 \item{fund_id}{UUID or permalink of the fund you wish to look up}
+
+\item{please_parse}{Logical. By default TRUE and will parse your data from a list of data.frames to a final data.frame with empty elements dropping out.}
 }
 \value{
 a data.frame

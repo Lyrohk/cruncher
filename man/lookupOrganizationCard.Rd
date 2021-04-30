@@ -4,12 +4,14 @@
 \alias{lookupOrganizationCard}
 \title{Function to lookup and paginate through a single card for a single organization over the Entity Lookup API Endpoint}
 \usage{
-lookupOrganizationCard(organization_card, organization_id)
+lookupOrganizationCard(organization_card, organization_id, please_parse = TRUE)
 }
 \arguments{
 \item{organization_card}{card field of interest that will be returned. Only one please!}
 
 \item{organization_id}{UUID or permalink of the organization you wish to look up}
+
+\item{please_parse}{Logical. By default TRUE and will parse your data from a list of data.frames to a final data.frame with empty elements dropping out.}
 }
 \value{
 a data.frame

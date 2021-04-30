@@ -4,12 +4,14 @@
 \alias{lookupOwnershipCard}
 \title{Function to lookup and paginate through a single card for a single ownership over the Entity Lookup API Endpoint}
 \usage{
-lookupOwnershipCard(ownership_card, ownership_id)
+lookupOwnershipCard(ownership_card, ownership_id, please_parse = TRUE)
 }
 \arguments{
 \item{ownership_card}{card field of interest that will be returned. Only one please!}
 
 \item{ownership_id}{UUID or permalink of the ownership you wish to look up}
+
+\item{please_parse}{Logical. By default TRUE and will parse your data from a list of data.frames to a final data.frame with empty elements dropping out.}
 }
 \value{
 a data.frame

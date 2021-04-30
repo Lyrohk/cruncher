@@ -4,12 +4,14 @@
 \alias{lookupEventCard}
 \title{Function to lookup and paginate through a single card for a single event over the Entity Lookup API Endpoint}
 \usage{
-lookupEventCard(event_card, event_id)
+lookupEventCard(event_card, event_id, please_parse = TRUE)
 }
 \arguments{
 \item{event_card}{card field of interest that will be returned. Only one please!}
 
 \item{event_id}{UUID or permalink of the event you wish to look up}
+
+\item{please_parse}{Logical. By default TRUE and will parse your data from a list of data.frames to a final data.frame with empty elements dropping out.}
 }
 \value{
 a data.frame

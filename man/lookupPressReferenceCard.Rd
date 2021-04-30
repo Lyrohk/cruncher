@@ -4,12 +4,18 @@
 \alias{lookupPressReferenceCard}
 \title{Function to lookup and paginate through a single card for a single press reference over the Entity Lookup API Endpoint}
 \usage{
-lookupPressReferenceCard(press_reference_card, press_reference_id)
+lookupPressReferenceCard(
+  press_reference_card,
+  press_reference_id,
+  please_parse = TRUE
+)
 }
 \arguments{
 \item{press_reference_card}{card field of interest that will be returned. Only one please!}
 
 \item{press_reference_id}{UUID or permalink of the press reference you wish to look up}
+
+\item{please_parse}{Logical. By default TRUE and will parse your data from a list of data.frames to a final data.frame with empty elements dropping out.}
 }
 \value{
 a data.frame

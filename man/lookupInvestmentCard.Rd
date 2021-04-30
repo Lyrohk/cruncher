@@ -4,12 +4,14 @@
 \alias{lookupInvestmentCard}
 \title{Function to lookup and paginate through a single card for a single investment over the Entity Lookup API Endpoint}
 \usage{
-lookupInvestmentCard(investment_card, investment_id)
+lookupInvestmentCard(investment_card, investment_id, please_parse = TRUE)
 }
 \arguments{
 \item{investment_card}{card field of interest that will be returned. Only one please!}
 
 \item{investment_id}{UUID or permalink of the investment you wish to look up}
+
+\item{please_parse}{Logical. By default TRUE and will parse your data from a list of data.frames to a final data.frame with empty elements dropping out.}
 }
 \value{
 a data.frame

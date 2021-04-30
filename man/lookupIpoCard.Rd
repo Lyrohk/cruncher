@@ -4,12 +4,14 @@
 \alias{lookupIpoCard}
 \title{Function to lookup and paginate through a single card for a single ipo over the Entity Lookup API Endpoint}
 \usage{
-lookupIpoCard(ipo_card, ipo_id)
+lookupIpoCard(ipo_card, ipo_id, please_parse = TRUE)
 }
 \arguments{
 \item{ipo_card}{card field of interest that will be returned. Only one please!}
 
 \item{ipo_id}{UUID or permalink of the ipo you wish to look up}
+
+\item{please_parse}{Logical. By default TRUE and will parse your data from a list of data.frames to a final data.frame with empty elements dropping out.}
 }
 \value{
 a data.frame

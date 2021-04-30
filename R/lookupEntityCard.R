@@ -71,20 +71,25 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
     data <- fromJSON(rawToChar(response$content))
 
     # Initialize final df
-    final_df <- list()
+    list_of_df <- list()
     page_no <- 1
 
 
     # Put into list the first df
     first_df <- data$cards[[entity_card]]
-    final_df$page_1 <- first_df
+    list_of_df$page_1 <- first_df
 
-    # Check NROW
+    # Return an empty data.frame if the length is 0
+    if (length(data$cards[[entity_card]]) == 0) {
+      return(data.frame())
+    }
+
+    # Check
     check <- NROW(first_df)
 
     # Paginate while check is 100
     while (check == 100) {
-      # Get last uuid of final_df
+      # Get last uuid of list_of_df
       last_id <- data$cards[[entity_card]]$identifier$uuid[100]
 
       # Add one to page_no
@@ -106,14 +111,14 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
       next_df <- data$cards[[entity_card]]
 
       # Append to original
-      final_df[[paste0("page_", page_no)]] <- next_df
+      list_of_df[[paste0("page_", page_no)]] <- next_df
 
       # Construct new check
       check <- NROW(next_df)
     }
 
     # Return final data.frame
-    return(final_df)
+    return(rbind_pages(list_of_df))
 
   } else {
     # Print out error with message
