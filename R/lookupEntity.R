@@ -49,7 +49,7 @@ lookupEntity <- function(id, path, card = "fields", please_parse = TRUE, print_e
 
   # Check if we get valid data, if not return error core
   if (response$status_code == 200) {
-    data <- fromJSON(rawToChar(response$content))
+    data <- fromJSON(response$url)
     # Check if parsing is wanted
     if (please_parse) {
 
