@@ -12,9 +12,19 @@
 listParse <- function(simpleList) {
   # Convert to list
   simpleList <- as.list(simpleList)
-  
-  # Check if it has content
-  ifelse(length(simpleList) == 0,
-         NA,
-         paste(as.character(simpleList$value), collapse=", "))
+
+  # Return NA is length 0
+  if (length(simpleList) == 0) {
+    return(NA)
+  } else {
+
+    # Check for card lookup length 1 and go one level deeper
+    if (class(simpleList[[1]]) == "data.frame") {
+      simpleList <- as.list(simpleList[[1]])
+    }
+
+    # Return collapsed comma separated value output
+    return(paste(as.character(simpleList$value), collapse=", "))
+
+  }
 }

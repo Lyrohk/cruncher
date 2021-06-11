@@ -5,6 +5,7 @@
 #'@param entity_card card field of interest that will be returned. Only one please!
 #'@param entity_id UUID or permalink of the organization you wish to look up
 #'@param entity_path Type of entity e.g. organizations
+#'@param please_parse to pretty parse the final data.frame e.g. removing nestled lists
 #'@return a list of paginated data.frames
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
@@ -17,7 +18,7 @@
 #' @import stringr
 #' @import dplyr
 #'
-lookupEntityCard <- function(entity_card, entity_id, entity_path) {
+lookupEntityCard <- function(entity_card, entity_id, entity_path, please_parse = TRUE) {
 
   # Check API_KEY
   API_KEY <- Sys.getenv("API_KEY")
@@ -56,9 +57,6 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
   # Entity entity_id check e.g. to lower, trimming whitespace, and replacing spaces with -
   entity_id <- entityIdCheck(entity_id)
 
-  # Get right parser
-  #parsingFun <- getParserForCard(entity_card)
-
   # Create the entity_path
   url <- paste0("https://api.crunchbase.com/api/v4/entities/", entity_path, "/", entity_id, "/cards/", entity_card, "?user_key=", API_KEY)
 
@@ -68,7 +66,7 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
   # Check if we get valentity_id data, if not return error core
   if (response$status_code == 200) {
     # Get data
-    data <- fromJSON(rawToChar(response$content))
+    data <- fromJSON(response$url)
 
     # Initialize final df
     list_of_df <- list()
@@ -105,7 +103,7 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
       next_res <- RETRY(verb = "GET", url = request_url)
 
       # Transform into readable format
-      data <- fromJSON(rawToChar(next_res$content))
+      data <- fromJSON(next_res$url)
 
       # Get next df
       next_df <- data$cards[[entity_card]]
@@ -117,8 +115,26 @@ lookupEntityCard <- function(entity_card, entity_id, entity_path) {
       check <- NROW(next_df)
     }
 
-    # Return final data.frame
-    return(rbind_pages(list_of_df))
+    # Get final data.frame
+    final_df <- rbind_pages(list_of_df)
+    # Check please_parse
+    if (please_parse) {
+      # Split each row of the data.frame into a list and pass this as data to be parsed to the parsing function
+      data_list <- split(final_df, seq(nrow(final_df)))
+
+      # Get right parser
+      parsingFun <- getParserForCard(entity_card)
+
+      # Apply to each element of the list and pack back together into final parsed data.frame
+      df <- do.call(rbind.data.frame, lapply(data_list, parsingFun))
+
+      # Filter out NA columns
+      return(df[colSums(!is.na(df)) > 0])
+
+    } else {
+      # Return the final data.frame which may contain nestled lists
+      return(final_df)
+    }
 
   } else {
     # Print out error with message

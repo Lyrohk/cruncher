@@ -23,6 +23,11 @@ parseIdentifier <- function(fields_data, field) {
     return(df)
   }
 
+  # Extra check for card lookup function to go to one level deeper
+  if (length(fields_data) == 1) {
+    fields_data <- fields_data[[1]]
+  }
+
   # Get uuid, permalink, value, and entity id
   value <- as.data.frame(ifelse(length(fields_data$value) == 0,
                   NA,
