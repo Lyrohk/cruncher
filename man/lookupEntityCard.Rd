@@ -4,7 +4,7 @@
 \alias{lookupEntityCard}
 \title{Function to lookup and paginate through a single card for a single entity over the Entity Lookup API Endpoint}
 \usage{
-lookupEntityCard(entity_card, entity_id, entity_path)
+lookupEntityCard(entity_card, entity_id, entity_path, please_parse = TRUE)
 }
 \arguments{
 \item{entity_card}{card field of interest that will be returned. Only one please!}
@@ -12,6 +12,8 @@ lookupEntityCard(entity_card, entity_id, entity_path)
 \item{entity_id}{UUID or permalink of the organization you wish to look up}
 
 \item{entity_path}{Type of entity e.g. organizations}
+
+\item{please_parse}{to pretty parse the final data.frame e.g. removing nestled lists}
 }
 \value{
 a list of paginated data.frames

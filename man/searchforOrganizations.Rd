@@ -20,7 +20,7 @@ searchForOrganizations(
 
 \item{sort_by}{(Optional) sort direction to sort the order field by. Either 'asc' or 'desc'.}
 
-\item{result_limit}{(Optional) numeric limit of the number of results you'd like to have. By default, all results will be returned to you.}
+\item{result_limit}{(Optional) numeric limit of the number of results you'd like to have. By default, all results will be returned to you. Only accurate to 1000 level, no smaller iterations.}
 
 \item{uuids_only}{(Optional) Logical if you want to have only the uuids of the searched for entities returned. By default, after the uuids are retrieved, the information for all entities will be looked up over the entity lookup API endpoint, which takes longer.}
 }
