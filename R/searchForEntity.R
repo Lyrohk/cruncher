@@ -85,6 +85,11 @@ searchForEntity <- function(path,
       # Print out how many counts we have
       cat(paste("The Search Result has", num_total_entities, "results. Please wait while the results are being fetched.\n"))
 
+      # Add limit
+      limit <- ifelse(is.na(result_limit),
+             num_total_entities,
+             min(result_limit, num_total_entities))
+
       # Get entity uuids
       entity_uuids <- data.frame("uuid" = data[["entities"]][["uuid"]])
 
@@ -95,7 +100,7 @@ searchForEntity <- function(path,
       # Check precision
       if (precise) {
         # Check if num_total_entities more than returned ones
-        while (num_total_entities > num_returned_entities) {
+        while (limit > num_returned_entities) {
           # Put last uuid as after_id parameter to the body
           json$after_id <- tail(entity_uuids$uuid, 1)
 
@@ -122,7 +127,7 @@ searchForEntity <- function(path,
         }
       } else {
         # Check if num_total_entities more than returned ones
-        while ((num_total_entities - num_returned_entities) > iter) {
+        while ((limit - num_returned_entities) > iter) {
           # Put last uuid as after_id parameter to the body
           json$after_id <- tail(entity_uuids$uuid, 1)
 
