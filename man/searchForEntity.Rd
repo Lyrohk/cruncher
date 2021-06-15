@@ -10,9 +10,9 @@ searchForEntity(
   order_by = "identifier",
   sort_by = "asc",
   result_limit = NA,
-  iter = 1000L,
   uuids_only = FALSE,
-  precise = TRUE
+  precise = TRUE,
+  iter = 1000L
 )
 }
 \arguments{
@@ -20,11 +20,11 @@ searchForEntity(
 
 \item{result_limit}{Personal set limit of result. Useful when only needing e.g. the top 50 organizations in a certain category.}
 
-\item{iter}{Number of results to be returned per call. Default here 1000L, max 2000L. Usually defaulting to 50.}
-
 \item{uuids_only}{Logical. Defaults to FALSE and after getting the uuids, it will automatically lookup more data via the entity lookup API.}
 
-\item{precise}{Logical Defaults to TRUE and returns all entries. However, during the lookup this number may change and thus run forever. To safeguard against this, set this argument to FALSE.}
+\item{precise}{Logical Defaults to TRUE and returns all entries. However, during the lookup this number may change and thus run forever. To safeguard against this, set this argument to FALSE (last #iter of results will be discarded).}
+
+\item{iter}{Number of results to be returned per call iteration. Default here 1000L, max 2000L. Keep in mind that the last #iter results will be discarded if you set precise to FALSE.}
 
 \item{search_conditions}{of what you are looking for}
 

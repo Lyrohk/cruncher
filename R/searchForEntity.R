@@ -5,8 +5,8 @@
 #'@param uuids_only Logical. Defaults to FALSE and after getting the uuids, it will automatically lookup more data via the entity lookup API.
 #'@param please_parse TRUE or FALSE. By default TRUE. If set to FALSE, it will return the data directly from the JSON, if set to TRUE, it will parse it into a data.frame object
 #'@param result_limit Personal set limit of result. Useful when only needing e.g. the top 50 organizations in a certain category.
-#'@param iter Number of results to be returned per call. Default here 1000L, max 2000L. Usually defaulting to 50.
-#'@param precise Logical Defaults to TRUE and returns all entries. However, during the lookup this number may change and thus run forever. To safeguard against this, set this argument to FALSE.
+#'@param precise Logical Defaults to TRUE and returns all entries. However, during the lookup this number may change and thus run forever. To safeguard against this, set this argument to FALSE (last #iter of results will be discarded).
+#'@param iter Number of results to be returned per call iteration. Default here 1000L, max 2000L. Keep in mind that the last #iter results will be discarded if you set precise to FALSE.
 #'@return either a data.frame (if parse = TRUE) or a list (if parse = FALSE)
 #'
 #' @author Layla Rohkohl, \email{byehity@gmail.com}
@@ -23,9 +23,9 @@ searchForEntity <- function(path,
                             order_by = "identifier",
                             sort_by = "asc",
                             result_limit = NA,
-                            iter = 1000L,
                             uuids_only = FALSE,
-                            precise = TRUE) {
+                            precise = TRUE,
+                            iter = 1000L) {
 
   # Check API_KEY
   API_KEY <- Sys.getenv("API_KEY")
@@ -51,6 +51,11 @@ searchForEntity <- function(path,
   # Quick to failure section ####
   if (!sort_by %in% c("asc", "desc")) {
     stop("Sort direction needs to be either 'asc' or 'desc'.")
+  }
+
+  # Check that iter is below 2000
+  if (iter > 2000) {
+    stop("The (optional) argument iter must be set to a number smaller than 2000.")
   }
 
   # Make JSON body

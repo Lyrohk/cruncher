@@ -10,7 +10,8 @@ searchForOwnerships(
   sort_by = "asc",
   result_limit = NA,
   uuids_only = F,
-  precise = T
+  precise = T,
+  iteration = 1000L
 )
 }
 \arguments{
@@ -23,6 +24,10 @@ searchForOwnerships(
 \item{result_limit}{(Optional) numeric limit of the number of results you'd like to have. By default, all results will be returned to you.}
 
 \item{uuids_only}{(Optional) Logical if you want to have only the uuids of the searched for entities returned. By default, after the uuids are retrieved, the information for all entities will be looked up over the entity lookup API endpoint, which takes longer.}
+
+\item{precise}{(Optional) Logical Default to TRUE. For a large number of results, you may want to set precise to FALSE as realtime updates may make the function otherwise run on indefinitely. When you set precise to FALSE, the last iteration set of results will not be returned. You can modify this parameter with the argument iteration.}
+
+\item{iteration}{(Optional) numeric iteration step. Default to 1000L, max 2000L. The last iteration will be discarded if you set precise to FALSE. Otherwise, this parameter won't affect you.}
 }
 \value{
 a data.frame
