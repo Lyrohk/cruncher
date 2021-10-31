@@ -103,7 +103,7 @@ parseFundingRound <- function(data) {
   
   # as Date
   df$announced_on <- as.Date(df$announced_on)
-  df$closed_on <- as.Date(df$closed_on)
+  #df$closed_on <- as.Date(df$closed_on)
   df$created_at <- as.Date(df$created_at)
   df$updated_at <- as.Date(df$updated_at)
   
